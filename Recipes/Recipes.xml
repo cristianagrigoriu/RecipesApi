@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Recipes</name>
+    </assembly>
+    <members>
+        <member name="M:Recipes.Controllers.RecipesController.GetAllRecipes">
+            <summary>
+            Get all recipes
+            </summary>
+             <response code="200">Successful operation</response>
+             <response code="500">Server error</response>
+        </member>
+        <member name="M:Recipes.Controllers.RecipesController.GetRecipe(System.String)">
+            <summary>
+            Get a recipe by the id
+            </summary>
+            <param name="id">
+            The id of the recipe
+            </param>
+             <response code="200">Successful operation</response>
+             <response code="400">Invalid id supplied</response>
+             <response code="404">Recipe with the specified id not found</response>
+             <response code="500">Server error</response>
+        </member>
+    </members>
+</doc>

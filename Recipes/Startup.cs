@@ -21,12 +21,20 @@ namespace Recipes
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            {
-                Version = "v1",
-                Title = "My Recipes",
-                Description = "All time family favourites"
-            }));
+            services.AddSwaggerGen(
+                c =>
+                {
+                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "My Recipes",
+                        Description = "All time family favourites"
+                    });
+                    c.IncludeXmlComments(@"C:\Users\crist\source\repos\Recipes\Recipes\Recipes.xml");
+                    c.DescribeAllEnumsAsStrings();
+                }
+                
+            );
 
             services.AddAutoMapper(typeof(Startup));
         }
