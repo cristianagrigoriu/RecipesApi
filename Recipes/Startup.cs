@@ -25,21 +25,7 @@ namespace Recipes
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(
-                c =>
-                {
-                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                    {
-                        Version = "v1",
-                        Title = "My Recipes",
-                        Description = "All time family favourites"
-                    });
-                    //ToDo make path absolute
-                    c.IncludeXmlComments(@"C:\Users\cgrigori\source\repos\RecipesApi-master\RecipesApi-master\Recipes\Recipes.xml");
-                    c.DescribeAllEnumsAsStrings();
-                }
-                
-            );
+            services.ConfigureSwagger();
 
             services.AddAutoMapper(typeof(Startup));
         }
@@ -53,19 +39,7 @@ namespace Recipes
             }
             else
             {
-                //ToDo de extras intr-o clasa separata
-                //handle a different type of exception differently
-                app.UseExceptionHandler(errorApp =>
-                {
-                    errorApp.Run(async context =>
-                    {
-                        context.Response.StatusCode = 500;
-                        context.Response.ContentType = "application/json";
-
-                        //ToDo return json with message
-                        await context.Response.WriteAsync("Something went wrong");
-                    });
-                });
+                app.ConfigureExceptionHandler();
             }
 
             app.UseHttpsRedirection();
