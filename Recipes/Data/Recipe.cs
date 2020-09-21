@@ -8,7 +8,7 @@ namespace Recipes.Data
         public string Name { get; set; }
         public string BasicDetails { get; set; }
         public double TimeInMinutes { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public List<string> Instructions { get; set; }
     }
 }

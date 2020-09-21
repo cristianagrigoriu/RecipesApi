@@ -23,5 +23,12 @@
              <response code="404">Recipe with the specified id not found</response>
              <response code="500">Server error</response>
         </member>
+        <member name="M:Recipes.Controllers.RecipesController.GetRecipeByIngredient(System.String)">
+            <summary>
+            Filter all recipes with a specified ingredient
+            </summary>
+            <param name="ingredient"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

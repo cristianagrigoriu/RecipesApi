@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace Recipes.Data
 {
+    using System;
+
     public static class RecipesFactory
     {
         public static IEnumerable<Recipe> GetRecipesWithBasicDetails()
         {
+            //throw new Exception();
             return new List<Recipe>
             {
                 new Recipe

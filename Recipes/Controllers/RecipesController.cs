@@ -31,17 +31,9 @@ namespace Recipes.Controllers
         [ProducesErrorResponseType(typeof(RecipeModel))]
         public ActionResult<RecipeModel[]> GetAllRecipes()
         {
-            try
-            {
-                var foundRecipes = RecipesFactory.GetRecipesWithBasicDetails();
-                var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
-                return recipeModels;
-            }
-            catch (System.Exception e)
-            {
-                return this.StatusCode(500);
-            }
-
+            var foundRecipes = RecipesFactory.GetRecipesWithBasicDetails();
+            var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
+            return recipeModels;
         }
 
         ///<summary>
@@ -60,73 +52,36 @@ namespace Recipes.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesErrorResponseType(typeof(RecipeModel))]
-        public ActionResult<RecipeModel> GetRecipe(string id)
+        public ActionResult<RecipeModel> GetRecipe([FromRoute] string id)
         {
-            try
-            {
-                var foundRecipe = RecipesFactory
-                    .GetRecipesWithBasicDetails()
-                    .Where(x => x.Id == id)
-                    .FirstOrDefault();
+            var foundRecipe = RecipesFactory
+                .GetRecipesWithBasicDetails()
+                .FirstOrDefault(x => x.Id == id);
 
-                if (foundRecipe == null)
-                {
-                    return NotFound();
-                }
-
-                return mapper.Map<RecipeModel>(foundRecipe);
-            }
-            catch (System.Exception)
+            if (foundRecipe == null)
             {
-                return this.StatusCode(500);
+                return NotFound();
             }
+
+            return mapper.Map<RecipeModel>(foundRecipe);
         }
 
+        /// <summary>
+        /// Filter all recipes with a specified ingredient
+        /// </summary>
+        /// <param name="ingredient"></param>
+        /// <returns></returns>
         [HttpGet("search")]
-        public ActionResult<RecipeModel[]> GetRecipeByIngredient(string ingredient)
+        public ActionResult<RecipeModel[]> GetRecipeByIngredient([FromQuery] string ingredient)
         {
-            try
-            {
-                Enum.TryParse(ingredient.ToUpper(), out BasicIngredient basicIngredient);
+            Enum.TryParse(ingredient.ToUpper(), out BasicIngredient basicIngredient);
 
-                //var x = basicIngredient == BasicIngredient.Tomatoes;
+            var foundRecipes = RecipesFactory
+                .GetRecipesWithBasicDetails()
+                .Where(x => x.Ingredients
+                    .Any(y => y.BasicIngredient == basicIngredient));
 
-                var allRecipes = RecipesFactory
-                    .GetRecipesWithBasicDetails();
-
-                var foundRecipes = new List<Recipe>();
-
-                foreach(Recipe recipe in allRecipes)
-                {
-                    if (recipe.Ingredients == null)
-                    {
-                        continue;
-                    }
-                    foreach (Ingredient recipeIngredient in recipe.Ingredients)
-                    {
-                        if (recipeIngredient.BasicIngredient == basicIngredient)
-                        {
-                            //yield
-                            foundRecipes.Add(recipe);
-                            continue;
-                        }
-                    }
-                }
-
-                    //.Where(x => x.Ingredients
-                    //    .Any(i => i.BasicIngredient == basicIngredient));
-
-                if (!foundRecipes.Any())
-                {
-                    return NotFound();
-                }
-
-                return this.mapper.Map<RecipeModel[]>(foundRecipes);
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(500);
-            }
+            return this.mapper.Map<RecipeModel[]>(foundRecipes);
         }
     }
 }

@@ -7,6 +7,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace Recipes
 {
+    using System.IO;
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,7 +34,8 @@ namespace Recipes
                         Title = "My Recipes",
                         Description = "All time family favourites"
                     });
-                    c.IncludeXmlComments(@"C:\Users\crist\source\repos\Recipes\Recipes\Recipes.xml");
+                    //ToDo make path absolute
+                    c.IncludeXmlComments(@"C:\Users\cgrigori\source\repos\RecipesApi-master\RecipesApi-master\Recipes\Recipes.xml");
                     c.DescribeAllEnumsAsStrings();
                 }
                 
@@ -45,6 +50,22 @@ namespace Recipes
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                //ToDo de extras intr-o clasa separata
+                //handle a different type of exception differently
+                app.UseExceptionHandler(errorApp =>
+                {
+                    errorApp.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "application/json";
+
+                        //ToDo return json with message
+                        await context.Response.WriteAsync("Something went wrong");
+                    });
+                });
             }
 
             app.UseHttpsRedirection();
