@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 namespace Recipes.Data
 {
-    using System;
+    using System.Linq;
 
     public static class RecipesFactory
     {
-        public static IEnumerable<Recipe> GetRecipesWithBasicDetails()
+        private static IEnumerable<Recipe> allRecipes = CreateRecipes();
+
+        public static IEnumerable<Recipe> GetRecipesWithBasicDetails() => allRecipes;
+
+        public static void AddRecipe(Recipe newRecipe)
         {
-            //throw new Exception();
+            var newId = GetMaximumExistingId() + 1;
+            newRecipe.Id = newId.ToString();
+            allRecipes = allRecipes.Append(newRecipe);
+        }
+
+        private static IEnumerable<Recipe> CreateRecipes()
+        {
             return new List<Recipe>
             {
                 new Recipe
@@ -47,10 +57,12 @@ namespace Recipes.Data
                         {
                             BasicIngredient = BasicIngredient.TOMATOES,
                             QuantityInGrams = 200
-                        } 
+                        }
                     }
                 }
             };
         }
+
+        private static int GetMaximumExistingId() => allRecipes.Max(x => int.Parse(x.Id));
     }
 }

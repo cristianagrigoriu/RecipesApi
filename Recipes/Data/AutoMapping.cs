@@ -8,6 +8,7 @@ namespace Recipes.Data
         public AutoMapping()
         {
             CreateMap<Recipe, RecipeModel>();
+            CreateMap<RecipeModel, Recipe>();
             CreateMap<Ingredient, IngredientModel>();
         }
     }

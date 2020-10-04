@@ -5,5 +5,7 @@
     public interface IRecipesRepository
     {
         IEnumerable<Recipe> GetAllRecipes();
+
+        void AddRecipe(Recipe newRecipe);
     }
 }

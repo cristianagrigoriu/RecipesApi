@@ -8,5 +8,10 @@
         {
             return RecipesFactory.GetRecipesWithBasicDetails();
         }
+
+        public void AddRecipe(Recipe newRecipe)
+        {
+            RecipesFactory.AddRecipe(newRecipe);
+        }
     }
 }

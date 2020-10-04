@@ -9,5 +9,6 @@ namespace Recipes.Models
         public string BasicDetails { get; set; }
         public double TimeInMinutes { get; set; }
         public List<IngredientModel> Ingredients { get; set; }
+        public BasicIngredient SpecialIngredient { get; set; }
     }
 }

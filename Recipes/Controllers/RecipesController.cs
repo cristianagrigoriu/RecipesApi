@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Recipes.Data;
 using Recipes.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -16,7 +15,9 @@ namespace Recipes.Controllers
         private readonly IMapper mapper;
         private readonly IRecipesRepository recipesRepository;
 
-        public RecipesController(IMapper mapper, IRecipesRepository recipesRepository)
+        public RecipesController(
+            IMapper mapper, 
+            IRecipesRepository recipesRepository)
         {
             this.mapper = mapper;
             this.recipesRepository = recipesRepository;
@@ -84,6 +85,22 @@ namespace Recipes.Controllers
                     .Any(y => y.BasicIngredient == basicIngredient));
 
             return this.mapper.Map<RecipeModel[]>(foundRecipes);
+        }
+
+        /// <summary>
+        /// Adds a new recipe to the existing ones
+        /// </summary>
+        /// <param name="newRecipe"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<RecipeModel> AddRecipe(RecipeModel newRecipe)
+        {
+            var recipe = this.mapper.Map<Recipe>(newRecipe);
+            this.recipesRepository.AddRecipe(recipe);
+
+            return Created("", this.mapper.Map<RecipeModel>(recipe));
+
+            //return BadRequest();
         }
     }
 }
