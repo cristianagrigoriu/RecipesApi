@@ -14,10 +14,12 @@ namespace Recipes.Controllers
     public class RecipesController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly IRecipesRepository recipesRepository;
 
-        public RecipesController(IMapper mapper)
+        public RecipesController(IMapper mapper, IRecipesRepository recipesRepository)
         {
             this.mapper = mapper;
+            this.recipesRepository = recipesRepository;
         }
 
         ///<summary>
@@ -31,7 +33,7 @@ namespace Recipes.Controllers
         [ProducesErrorResponseType(typeof(RecipeModel))]
         public ActionResult<RecipeModel[]> GetAllRecipes()
         {
-            var foundRecipes = RecipesFactory.GetRecipesWithBasicDetails();
+            var foundRecipes = this.recipesRepository.GetAllRecipes();
             var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
             return recipeModels;
         }
@@ -54,8 +56,8 @@ namespace Recipes.Controllers
         [ProducesErrorResponseType(typeof(RecipeModel))]
         public ActionResult<RecipeModel> GetRecipe([FromRoute] string id)
         {
-            var foundRecipe = RecipesFactory
-                .GetRecipesWithBasicDetails()
+            var foundRecipe = this.recipesRepository
+                .GetAllRecipes()
                 .FirstOrDefault(x => x.Id == id);
 
             if (foundRecipe == null)
@@ -76,8 +78,8 @@ namespace Recipes.Controllers
         {
             Enum.TryParse(ingredient.ToUpper(), out BasicIngredient basicIngredient);
 
-            var foundRecipes = RecipesFactory
-                .GetRecipesWithBasicDetails()
+            var foundRecipes = this.recipesRepository
+                .GetAllRecipes()
                 .Where(x => x.Ingredients
                     .Any(y => y.BasicIngredient == basicIngredient));
 

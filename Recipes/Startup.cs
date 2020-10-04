@@ -7,9 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Recipes
 {
-    using System.IO;
-    using Microsoft.AspNetCore.Diagnostics;
-    using Microsoft.AspNetCore.Http;
+    using Data;
 
     public class Startup
     {
@@ -28,6 +26,8 @@ namespace Recipes
             services.ConfigureSwagger();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddTransient<IRecipesRepository, RecipesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

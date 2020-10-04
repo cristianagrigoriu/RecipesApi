@@ -9,7 +9,7 @@ namespace Recipes.Data
     {
         public static IEnumerable<Recipe> GetRecipesWithBasicDetails()
         {
-            throw new Exception();
+            //throw new Exception();
             return new List<Recipe>
             {
                 new Recipe
