@@ -127,7 +127,31 @@ namespace Recipes.Controllers
 
             this.mapper.Map(updatedRecipe, existingRecipe);
 
+            this.recipesRepository.UpdateRecipe(existingRecipe);
+
             return this.mapper.Map<RecipeModel>(existingRecipe);
+        }
+
+        /// <summary>
+        /// Deletes a recipe with the given id
+        /// </summary>
+        /// <param name="id">
+        ///Id of the recipe to be deleted
+        /// </param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="404">Recipe with the specified id not found</response>
+        [HttpDelete("{id}")]
+        public IActionResult DeleteRecipe(string id)
+        {
+            var recipeToBeDeleted = this.recipesRepository.GetRecipeById(id);
+            if (recipeToBeDeleted == null)
+            {
+                return NotFound($"Could not find recipe with id = {id}");
+            }
+
+            this.recipesRepository.DeleteRecipe(id);
+
+            return Ok();
         }
     }
 }

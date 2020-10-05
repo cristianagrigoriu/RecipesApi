@@ -1,6 +1,7 @@
 ﻿namespace Recipes.Data
 {
     using System.Collections.Generic;
+    using Models;
 
     public interface IRecipesRepository
     {
@@ -9,5 +10,9 @@
         void AddRecipe(Recipe newRecipe);
 
         Recipe GetRecipeById(string id);
+
+        void DeleteRecipe(string id);
+
+        void UpdateRecipe(Recipe updatedRecipe);
     }
 }

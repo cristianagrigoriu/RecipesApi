@@ -1,6 +1,7 @@
 ﻿namespace Recipes.Data
 {
     using System.Collections.Generic;
+    using Models;
 
     public class RecipesRepository : IRecipesRepository
     {
@@ -17,6 +18,16 @@
         public Recipe GetRecipeById(string id)
         {
             return RecipesFactory.GetRecipeById(id);
+        }
+
+        public void DeleteRecipe(string id)
+        {
+            RecipesFactory.DeleteRecipe(id);
+        }
+
+        public void UpdateRecipe(Recipe updatedRecipe)
+        {
+            RecipesFactory.UpdateRecipe(updatedRecipe);
         }
     }
 }

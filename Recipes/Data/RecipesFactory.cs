@@ -18,56 +18,65 @@ namespace Recipes.Data
             allRecipes = allRecipes.Append(newRecipe);
         }
 
-        private static IEnumerable<Recipe> CreateRecipes()
-        {
-            return new List<Recipe>
-            {
-                new Recipe
+        private static IEnumerable<Recipe> CreateRecipes() => 
+            new List<Recipe>
                 {
-                    Id = "1",
-                    Name = "Banana Pancakes",
-                    BasicDetails = "Easy breakfast"
-                },
-                new Recipe
-                {
-                    Id = "2",
-                    Name = "Zuchinni Bread",
-                    BasicDetails = "Get the food processor ready"
-                },
-                new Recipe
-                {
-                    Id = "3",
-                    Name = "Homemade icecream",
-                    BasicDetails = "For lazy weekends"
-                },
-                new Recipe
-                {
-                    Id = "4",
-                    Name = "Pizza",
-                    BasicDetails = "Quick and delicious"
-                },
-                new Recipe
-                {
-                    Id = "5",
-                    Name = "Tomato Soup",
-                    BasicDetails = "Fall is coming",
-                    Ingredients = new List<Ingredient>
+                    new Recipe
                     {
-                        new Ingredient
+                        Id = "1",
+                        Name = "Banana Pancakes",
+                        BasicDetails = "Easy breakfast"
+                    },
+                    new Recipe
+                    {
+                        Id = "2",
+                        Name = "Zuchinni Bread",
+                        BasicDetails = "Get the food processor ready"
+                    },
+                    new Recipe
+                    {
+                        Id = "3",
+                        Name = "Homemade icecream",
+                        BasicDetails = "For lazy weekends"
+                    },
+                    new Recipe
+                    {
+                        Id = "4",
+                        Name = "Pizza",
+                        BasicDetails = "Quick and delicious"
+                    },
+                    new Recipe
+                    {
+                        Id = "5",
+                        Name = "Tomato Soup",
+                        BasicDetails = "Fall is coming",
+                        Ingredients = new List<Ingredient>
                         {
-                            BasicIngredient = BasicIngredient.TOMATOES,
-                            QuantityInGrams = 200
+                            new Ingredient
+                            {
+                                BasicIngredient = BasicIngredient.TOMATOES,
+                                QuantityInGrams = 200
+                            }
                         }
                     }
-                }
-            };
-        }
-
-        private static int GetMaximumExistingId() => allRecipes.Max(x => int.Parse(x.Id));
+                };
 
         public static Recipe GetRecipeById(string id)
         {
             return allRecipes.FirstOrDefault(x => x.Id == id);
+        }
+
+        public static void DeleteRecipe(string id)
+        {
+            allRecipes = allRecipes.Where(x => x.Id != id);
+        }
+
+        private static int GetMaximumExistingId() => allRecipes.Max(x => int.Parse(x.Id));
+
+        public static void UpdateRecipe(Recipe updatedRecipe)
+        {
+            allRecipes = allRecipes.Where(x => x.Id != updatedRecipe.Id);
+            allRecipes = allRecipes.Append(updatedRecipe).OrderBy(x => int.Parse(x.Id));
         }
     }
 }
