@@ -13,5 +13,10 @@
         {
             RecipesFactory.AddRecipe(newRecipe);
         }
+
+        public Recipe GetRecipeById(string id)
+        {
+            return RecipesFactory.GetRecipeById(id);
+        }
     }
 }

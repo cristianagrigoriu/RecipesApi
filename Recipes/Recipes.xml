@@ -30,5 +30,27 @@
             <param name="ingredient"></param>
             <returns></returns>
         </member>
+        <member name="M:Recipes.Controllers.RecipesController.AddRecipe(Recipes.Models.RecipeModel)">
+            <summary>
+            Adds a new recipe to the existing ones
+            </summary>
+            <param name="newRecipe">
+            A json specifying the fields of the new recipe
+            </param>
+             <response code="200">Successful operation</response>
+        </member>
+        <member name="M:Recipes.Controllers.RecipesController.UpdateRecipe(System.String,Recipes.Models.RecipeModel)">
+            <summary>
+            Updates an existing recipe by replacing it with the one sent
+            </summary>
+            <param name="id">
+            Id of recipe to be updated
+            </param>
+            <param name="updatedRecipe">
+            json of the recipe that will replace the existing one
+            </param>
+             <response code="200">Successful operation</response>
+             <response code="404">Recipe with the specified id not found</response>
+        </member>
     </members>
 </doc>

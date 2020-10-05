@@ -10,6 +10,7 @@ namespace Recipes.Data
             CreateMap<Recipe, RecipeModel>();
             CreateMap<RecipeModel, Recipe>();
             CreateMap<Ingredient, IngredientModel>();
+            CreateMap<IngredientModel, Ingredient>();
         }
     }
 }

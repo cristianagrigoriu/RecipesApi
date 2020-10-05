@@ -64,5 +64,10 @@ namespace Recipes.Data
         }
 
         private static int GetMaximumExistingId() => allRecipes.Max(x => int.Parse(x.Id));
+
+        public static Recipe GetRecipeById(string id)
+        {
+            return allRecipes.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

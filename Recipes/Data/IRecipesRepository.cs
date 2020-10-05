@@ -7,5 +7,7 @@
         IEnumerable<Recipe> GetAllRecipes();
 
         void AddRecipe(Recipe newRecipe);
+
+        Recipe GetRecipeById(string id);
     }
 }

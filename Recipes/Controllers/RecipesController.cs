@@ -69,11 +69,11 @@ namespace Recipes.Controllers
             return mapper.Map<RecipeModel>(foundRecipe);
         }
 
-        /// <summary>
-        /// Filter all recipes with a specified ingredient
-        /// </summary>
-        /// <param name="ingredient"></param>
-        /// <returns></returns>
+        ///<summary>
+        ///Filter all recipes with a specified ingredient
+        ///</summary>
+        ///<param name="ingredient"></param>
+        ///<returns></returns>
         [HttpGet("search")]
         public ActionResult<RecipeModel[]> GetRecipeByIngredient([FromQuery] string ingredient)
         {
@@ -87,11 +87,13 @@ namespace Recipes.Controllers
             return this.mapper.Map<RecipeModel[]>(foundRecipes);
         }
 
-        /// <summary>
-        /// Adds a new recipe to the existing ones
-        /// </summary>
-        /// <param name="newRecipe"></param>
-        /// <returns></returns>
+        ///<summary>
+        ///Adds a new recipe to the existing ones
+        ///</summary>
+        ///<param name="newRecipe">
+        ///A json specifying the fields of the new recipe
+        ///</param>
+        /// <response code="200">Successful operation</response>
         [HttpPost]
         public ActionResult<RecipeModel> AddRecipe(RecipeModel newRecipe)
         {
@@ -101,6 +103,31 @@ namespace Recipes.Controllers
             return Created("", this.mapper.Map<RecipeModel>(recipe));
 
             //return BadRequest();
+        }
+
+        ///<summary>
+        ///Updates an existing recipe by replacing it with the one sent
+        ///</summary>
+        ///<param name="id">
+        ///Id of recipe to be updated
+        ///</param>
+        ///<param name="updatedRecipe">
+        ///json of the recipe that will replace the existing one
+        ///</param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="404">Recipe with the specified id not found</response>
+        [HttpPut("{id}")]
+        public ActionResult<RecipeModel> UpdateRecipe([FromRoute] string id, RecipeModel updatedRecipe)
+        {
+            var existingRecipe = this.recipesRepository.GetRecipeById(id);
+            if (existingRecipe == null)
+            {
+                return NotFound($"Could not find recipe with id = {id}");
+            }
+
+            this.mapper.Map(updatedRecipe, existingRecipe);
+
+            return this.mapper.Map<RecipeModel>(existingRecipe);
         }
     }
 }

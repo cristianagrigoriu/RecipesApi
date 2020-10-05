@@ -33,7 +33,7 @@
                         Description = "All time family favourites"
                     });
                     //ToDo make path absolute
-                    c.IncludeXmlComments(@"C:\Users\cgrigori\source\repos\RecipesApi-master\RecipesApi-master\Recipes\Recipes.xml");
+                    c.IncludeXmlComments(@"C:\Users\cgrigori\source\repos\RecipesApi\Recipes\Recipes.xml");
                     //ToDo make enums aappear as text
                     c.DescribeAllEnumsAsStrings();
                 }
