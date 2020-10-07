@@ -11,6 +11,6 @@ namespace Recipes.Data
         [EnumDataType(typeof(BasicIngredient))]
         [JsonConverter(typeof(StringEnumConverter))]
         public BasicIngredient BasicIngredient { get; set; }
-        public double QuantityInGrams { get; set; }
+        public IngredientMeasure Measure { get; set; }
     }
 }

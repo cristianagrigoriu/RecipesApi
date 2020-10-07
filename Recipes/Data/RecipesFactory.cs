@@ -55,7 +55,11 @@ namespace Recipes.Data
                             new Ingredient
                             {
                                 BasicIngredient = BasicIngredient.TOMATOES,
-                                QuantityInGrams = 200
+                                Measure = new IngredientMeasure
+                                {
+                                    UnitOfMeasure = UnitOfMeasure.Pieces,
+                                    Quantity = 5
+                                }
                             }
                         }
                     }
