@@ -11,9 +11,9 @@ Initial design:
 | ---- |----:| -----------:| --------: |
 |<ul><li>- [x] </li></ul> | /recipes | get all recipes | 200 Ok |
 |<ul><li>- [x] </li></ul> | /recipes/{id} | get specific recipe - basic details (+ time) - by id -> short description and time | 200 Ok<br>404 Not Found |
-|<ul><li>- [ ] </li></ul> | /recipes/{id}/instructions<br>/recipes/{id}/ingredients | get specific recipe - basic details (+ time) - by id -> short description and time | 200 Ok<br>404 Not Found |
-|<ul><li>- [ ] </li></ul> | /recipes<br>{name:, description:, category: breakfast/lunch/dinner} | add recipe - all details | 201 Created + new object<br>400 Bad request - validation error |
-|<ul><li>- [ ] </li></ul> | /recipes/{id}<br>{newName:...} | update recipe - basic details | 204 No Content<br>400 Bad request - validation error<br>404 Not Found |
+|<ul><li>- [ ] </li></ul> | /recipes/{id}/instructions<br>/recipes/{id}/ingredients | get specific recipe - all details - instruction & ingredients - by id | 200 Ok<br>404 Not Found |
+|<ul><li>- [x] </li></ul> | /recipes<br>{name:, description:, category: breakfast/lunch/dinner} | add recipe - all details | 201 Created + new object<br>400 Bad request - validation error |
+|<ul><li>- [x] </li></ul> | /recipes/{id}<br>{newName:...} | update recipe - basic details | 204 No Content<br>400 Bad request - validation error<br>404 Not Found |
 |<ul><li>- [ ] </li></ul> | /recipes/{id}/instructions<br>{instructions:...} | update instructions | 204 No Content<br>400 Bad request - validation error<br>404 Not Found |
 |<ul><li>- [ ] </li></ul> | /recipes/{id} | delete recipe -> and everything related | 204 No Content<br>404 Not Found |
 |<ul><li>- [ ] </li></ul> | /recipes?categories=...&ingredients=...&keyword=... | filter recipes<br>filter only after what is filled in, otherwise return everything | 200 Ok |
