@@ -52,5 +52,15 @@
              <response code="200">Successful operation</response>
              <response code="404">Recipe with the specified id not found</response>
         </member>
+        <member name="M:Recipes.Controllers.RecipesController.DeleteRecipe(System.String)">
+             <summary>
+             Deletes a recipe with the given id
+             </summary>
+             <param name="id">
+            Id of the recipe to be deleted
+             </param>
+             <response code="200">Successful operation</response>
+             <response code="404">Recipe with the specified id not found</response>
+        </member>
     </members>
 </doc>
