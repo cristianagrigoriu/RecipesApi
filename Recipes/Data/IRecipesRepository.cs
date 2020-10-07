@@ -14,5 +14,7 @@
         void DeleteRecipe(string id);
 
         void UpdateRecipe(Recipe updatedRecipe);
+
+        List<string> GetInstructionsOfRecipe(string id);
     }
 }

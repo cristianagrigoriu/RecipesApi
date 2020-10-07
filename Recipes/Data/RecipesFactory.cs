@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Recipes.Data
 {
     using System.Linq;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     public static class RecipesFactory
     {
@@ -61,6 +62,12 @@ namespace Recipes.Data
                                     Quantity = 5
                                 }
                             }
+                        },
+                        Instructions = new List<string>
+                        {
+                            "1. bla",
+                            "2. bla bla",
+                            "3. bla bla bla"
                         }
                     }
                 };
@@ -81,6 +88,13 @@ namespace Recipes.Data
         {
             allRecipes = allRecipes.Where(x => x.Id != updatedRecipe.Id);
             allRecipes = allRecipes.Append(updatedRecipe).OrderBy(x => int.Parse(x.Id));
+        }
+
+        public static List<string> GetInstructionsOfRecipe(string id)
+        {
+            return allRecipes
+                .FirstOrDefault(x => x.Id == id)?
+                .Instructions;
         }
     }
 }

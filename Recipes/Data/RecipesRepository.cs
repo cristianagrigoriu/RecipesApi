@@ -29,5 +29,10 @@
         {
             RecipesFactory.UpdateRecipe(updatedRecipe);
         }
+
+        public List<string> GetInstructionsOfRecipe(string id)
+        {
+            return RecipesFactory.GetInstructionsOfRecipe(id);
+        }
     }
 }
