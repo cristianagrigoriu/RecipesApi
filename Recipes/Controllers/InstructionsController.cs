@@ -1,10 +1,11 @@
 ﻿namespace Recipes.Controllers
 {
     using System.Collections.Generic;
+    using Constants;
     using Data;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/recipes/{id}/[controller]")]
+    [Route(MainRoutes.InstructionsRoute)]
     [ApiController]
     public class InstructionsController : ControllerBase
     {

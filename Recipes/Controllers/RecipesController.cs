@@ -8,7 +8,10 @@ using System.Net;
 
 namespace Recipes.Controllers
 {
-    [Route("api/[controller]")]
+    using Constants;
+
+    //my couch
+    [Route(MainRoutes.RecipesRoute)]
     [ApiController]
     public class RecipesController : ControllerBase
     {
