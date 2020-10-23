@@ -1,12 +1,26 @@
 ﻿namespace Recipes.Data
 {
+    using System;
     using System.Collections.Generic;
     using Models;
+    using MyCouch;
 
     public class RecipesRepository : IRecipesRepository
     {
+        private MyCouchStore store;
+
+        //ToDo inject my couch client
+        //ToDo add new repository for couch, check dispose
+        public RecipesRepository()
+        {
+            //ToDo repo in proiect separat
+            //ToDo URL put in app settings
+            this.store = new MyCouchStore("http://admin:admin1@localhost:5984", "recipes");
+        }
+
         public IEnumerable<Recipe> GetAllRecipes()
         {
+            //ToDo get all not supported; use views
             return RecipesFactory.GetRecipesWithBasicDetails();
         }
 
