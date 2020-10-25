@@ -20,7 +20,7 @@
 
         public IEnumerable<Recipe> GetAllRecipes()
         {
-            //ToDo get all not supported; use views
+            //ToDo get all -> not supported in couch db; use views
             return RecipesFactory.GetRecipesWithBasicDetails();
         }
 
