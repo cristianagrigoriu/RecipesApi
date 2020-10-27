@@ -4,6 +4,14 @@
 
     public class RecipesCouchRepository : IRecipesRepository
     {
+        private readonly ConnectionStrings connectionStrings;
+        private string couchDbConnectionString;
+
+        public RecipesCouchRepository()
+        {
+            //this.couchDbConnectionString = connectionStrings.CouchDb;
+        }
+
         public IEnumerable<Recipe> GetAllRecipes()
         {
             throw new System.NotImplementedException();

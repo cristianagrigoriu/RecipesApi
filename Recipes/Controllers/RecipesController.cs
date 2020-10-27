@@ -10,6 +10,7 @@ namespace Recipes.Controllers
 {
     using System.Security.Policy;
     using Constants;
+    using Microsoft.Extensions.Options;
     using MyCouch;
 
     //my couch
@@ -19,13 +20,17 @@ namespace Recipes.Controllers
     {
         private readonly IMapper mapper;
         private readonly IRecipesRepository recipesRepository;
+        private readonly IOptions<ConnectionStrings> connectionStrings;
 
         public RecipesController(
             IMapper mapper, 
-            IRecipesRepository recipesRepository)
+            IRecipesRepository recipesRepository,
+            IOptions<ConnectionStrings> connectionStrings)
         {
             this.mapper = mapper;
             this.recipesRepository = recipesRepository;
+            this.connectionStrings = connectionStrings;
+            var couchDbConnectionString = this.connectionStrings.Value.CouchDb;
         }
 
         ///<summary>
