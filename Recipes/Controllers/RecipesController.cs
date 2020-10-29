@@ -8,29 +8,22 @@ using System.Net;
 
 namespace Recipes.Controllers
 {
-    using System.Security.Policy;
+    using System.Threading.Tasks;
     using Constants;
-    using Microsoft.Extensions.Options;
-    using MyCouch;
 
-    //my couch
     [Route(MainRoutes.RecipesRoute)]
     [ApiController]
     public class RecipesController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IRecipesRepository recipesRepository;
-        private readonly IOptions<ConnectionStrings> connectionStrings;
 
         public RecipesController(
             IMapper mapper, 
-            IRecipesRepository recipesRepository,
-            IOptions<ConnectionStrings> connectionStrings)
+            IRecipesRepository recipesRepository)
         {
             this.mapper = mapper;
             this.recipesRepository = recipesRepository;
-            this.connectionStrings = connectionStrings;
-            var couchDbConnectionString = this.connectionStrings.Value.CouchDb;
         }
 
         ///<summary>
@@ -42,11 +35,9 @@ namespace Recipes.Controllers
         [ProducesResponseType(typeof(RecipeModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesErrorResponseType(typeof(RecipeModel))]
-        public ActionResult<RecipeModel[]> GetAllRecipes()
+        public async Task<ActionResult<RecipeModel[]>> GetAllRecipes()
         {
-            
-            //
-            var foundRecipes = this.recipesRepository.GetAllRecipes();
+            var foundRecipes = await this.recipesRepository.GetAllRecipes();
             var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
             return recipeModels;
         }
@@ -67,11 +58,10 @@ namespace Recipes.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesErrorResponseType(typeof(RecipeModel))]
-        public ActionResult<RecipeModel> GetRecipe([FromRoute] string id)
+        public async Task<ActionResult<RecipeModel>> GetRecipe([FromRoute] string id)
         {
-            var foundRecipe = this.recipesRepository
-                .GetAllRecipes()
-                .FirstOrDefault(x => x.Id == id);
+            var foundRecipe = await this.recipesRepository
+                .GetRecipeById(id);
 
             if (foundRecipe == null)
             {
@@ -92,7 +82,7 @@ namespace Recipes.Controllers
             Enum.TryParse(ingredient.ToUpper(), out BasicIngredient basicIngredient);
 
             var foundRecipes = this.recipesRepository
-                .GetAllRecipes()
+                .GetAllRecipes().Result
                 .Where(x => x.Ingredients
                     .Any(y => y.BasicIngredient == basicIngredient));
 
@@ -139,7 +129,7 @@ namespace Recipes.Controllers
 
             this.mapper.Map(updatedRecipe, existingRecipe);
 
-            this.recipesRepository.UpdateRecipe(existingRecipe);
+            this.recipesRepository.UpdateRecipe(existingRecipe.Result);
 
             return this.mapper.Map<RecipeModel>(existingRecipe);
         }

@@ -1,15 +1,16 @@
 ﻿namespace Recipes.Data
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Models;
 
     public interface IRecipesRepository
     {
-        IEnumerable<Recipe> GetAllRecipes();
+        Task<IEnumerable<Recipe>> GetAllRecipes();
 
         void AddRecipe(Recipe newRecipe);
 
-        Recipe GetRecipeById(string id);
+        Task<Recipe> GetRecipeById(string id);
 
         void DeleteRecipe(string id);
 

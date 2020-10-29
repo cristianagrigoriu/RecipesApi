@@ -1,30 +1,40 @@
 ﻿namespace Recipes.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Options;
+    using MyCouch;
+    using MyCouch.Requests;
 
     public class RecipesCouchRepository : IRecipesRepository
     {
-        private readonly ConnectionStrings connectionStrings;
-        private string couchDbConnectionString;
+        private MyCouchStore store;
 
-        public RecipesCouchRepository()
+        public RecipesCouchRepository(IOptions<ConnectionStrings> connectionStrings)
         {
-            //this.couchDbConnectionString = connectionStrings.CouchDb;
+            this.store = new MyCouchStore(connectionStrings.Value.CouchDb, "recipes");
         }
 
-        public IEnumerable<Recipe> GetAllRecipes()
+        public async Task<IEnumerable<Recipe>> GetAllRecipes()
         {
-            throw new System.NotImplementedException();
+            var query = new Query("recipesByName", "byName")
+            {
+                IncludeDocs = true
+            };
+            var recipes = await this.store.QueryAsync<string, Recipe>(query);
+            return recipes.Select(x => x.IncludedDoc);
         }
 
+        //ToDo make all methods from repo async
         public void AddRecipe(Recipe newRecipe)
         {
-            throw new System.NotImplementedException();
+            this.store.StoreAsync(newRecipe).Wait();
         }
 
-        public Recipe GetRecipeById(string id)
+        public async Task<Recipe> GetRecipeById(string id)
         {
-            throw new System.NotImplementedException();
+            return await this.store.GetByIdAsync<Recipe>(id);
         }
 
         public void DeleteRecipe(string id)

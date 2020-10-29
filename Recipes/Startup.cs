@@ -27,9 +27,9 @@ namespace Recipes
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddTransient<IRecipesRepository, RecipesCouchRepository>();
-
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
+            services.AddTransient<IRecipesRepository, RecipesCouchRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
