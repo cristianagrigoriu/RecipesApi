@@ -39,7 +39,8 @@
 
         public void DeleteRecipe(string id)
         {
-            throw new System.NotImplementedException();
+            this.store.DeleteAsync(id).Wait();
+            //throw new System.NotImplementedException();
         }
 
         public void UpdateRecipe(Recipe updatedRecipe)

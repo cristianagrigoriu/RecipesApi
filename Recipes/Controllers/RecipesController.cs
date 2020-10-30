@@ -146,7 +146,7 @@ namespace Recipes.Controllers
         public IActionResult DeleteRecipe(string id)
         {
             var recipeToBeDeleted = this.recipesRepository.GetRecipeById(id);
-            if (recipeToBeDeleted == null)
+            if (recipeToBeDeleted.Result == null)
             {
                 return NotFound($"Could not find recipe with id = {id}");
             }
