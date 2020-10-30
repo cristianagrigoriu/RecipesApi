@@ -1,11 +1,14 @@
 ﻿namespace Recipes.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using MyCouch;
+    using MyCouch.Net;
     using MyCouch.Requests;
+    using Newtonsoft.Json;
 
     public class RecipesCouchRepository : IRecipesRepository
     {
@@ -26,7 +29,6 @@
             return recipes.Select(x => x.IncludedDoc);
         }
 
-        //ToDo make all methods from repo async
         public void AddRecipe(Recipe newRecipe)
         {
             this.store.StoreAsync(newRecipe).Wait();
@@ -40,12 +42,16 @@
         public void DeleteRecipe(string id)
         {
             this.store.DeleteAsync(id).Wait();
-            //throw new System.NotImplementedException();
         }
 
         public void UpdateRecipe(Recipe updatedRecipe)
         {
-            throw new System.NotImplementedException();
+            var existingRecipe = store.GetHeaderAsync(updatedRecipe.Id).Result;
+            var doc = JsonConvert.SerializeObject(updatedRecipe);
+            //this.store.StoreAsync(existingRecipe.Id, existingRecipe.Rev, doc).Wait();
+            //does not store object with doc type anymore!!!
+
+            this.store.SetAsync(existingRecipe.Id, doc);
         }
 
         public List<string> GetInstructionsOfRecipe(string id)

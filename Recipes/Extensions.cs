@@ -33,7 +33,6 @@
                         Description = "All time family favourites"
                     });
                     c.IncludeXmlComments("Recipes.xml");
-                    //ToDo make enums appear as text
                     c.DescribeAllEnumsAsStrings();
                 }
             );

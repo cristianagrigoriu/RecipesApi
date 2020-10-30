@@ -127,11 +127,11 @@ namespace Recipes.Controllers
                 return NotFound($"Could not find recipe with id = {id}");
             }
 
-            this.mapper.Map(updatedRecipe, existingRecipe);
+            this.mapper.Map(updatedRecipe, existingRecipe.Result);
 
             this.recipesRepository.UpdateRecipe(existingRecipe.Result);
 
-            return this.mapper.Map<RecipeModel>(existingRecipe);
+            return this.mapper.Map<RecipeModel>(existingRecipe.Result);
         }
 
         /// <summary>

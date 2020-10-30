@@ -6,7 +6,6 @@
     public class RecipesRepository : IRecipesRepository
     {
         //ToDo inject my couch client
-        //ToDo add new repository for couch, check dispose
         public RecipesRepository()
         {
             //ToDo repo in proiect separat
