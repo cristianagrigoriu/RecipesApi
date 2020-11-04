@@ -30,6 +30,8 @@ namespace Recipes
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddTransient<IRecipesRepository, RecipesCouchRepository>();
+
+            services.AddTransient<IIngredientsRepository, IngredientsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

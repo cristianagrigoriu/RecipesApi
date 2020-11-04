@@ -51,9 +51,9 @@ namespace Recipes.Data
                         Id = "5",
                         Name = "Tomato Soup",
                         BasicDetails = "Fall is coming",
-                        Ingredients = new List<Ingredient>
+                        Ingredients = new List<RecipeIngredient>
                         {
-                            new Ingredient
+                            new RecipeIngredient
                             {
                                 Name = "tomatoes",
                                 Measure = new IngredientMeasure

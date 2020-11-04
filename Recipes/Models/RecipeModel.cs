@@ -16,6 +16,6 @@ namespace Recipes.Models
 
         public double TimeInMinutes { get; set; }
 
-        public List<IngredientModel> Ingredients { get; set; }
+        public List<RecipeIngredientModel> Ingredients { get; set; }
     }
 }

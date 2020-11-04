@@ -14,7 +14,7 @@ namespace Recipes.Data
 
         public double TimeInMinutes { get; set; }
 
-        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+        public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
 
         public List<string> Instructions { get; set; }
     }

@@ -1,34 +1,49 @@
 ﻿namespace Recipes.Controllers
 {
     using System.Collections.Generic;
+    using AutoMapper;
     using Constants;
     using Data;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
 
-    [Route(MainRoutes.InstructionsRoute)]
+    [Route(MainRoutes.IngredientsRoute)]
     [ApiController]
     public class IngredientsController : ControllerBase
     {
-        private readonly IRecipesRepository recipesRepository;
+        private readonly IIngredientsRepository ingredientsRepository;
+        private readonly IMapper mapper;
 
-        public IngredientsController(IRecipesRepository recipesRepository)
+        public IngredientsController(
+            IIngredientsRepository ingredientsRepository, 
+            IMapper mapper)
         {
-            this.recipesRepository = recipesRepository;
+            this.ingredientsRepository = ingredientsRepository;
+            this.mapper = mapper;
         }
 
-        [HttpGet]
-        public ActionResult<List<string>> Get(string id)
+        [HttpPost]
+        public ActionResult<RecipeIngredientModel> AddIngredient(RecipeIngredientModel newIngredient)
         {
-            var recipe = this.recipesRepository.GetRecipeById(id);
+            var ingredient = this.mapper.Map<RecipeIngredient>(newIngredient);
+            this.ingredientsRepository.AddIngredient(ingredient);
 
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-
-            var instructions = this.recipesRepository.GetInstructionsOfRecipe(id);
-
-            return instructions;
+            return Created("", this.mapper.Map<RecipeIngredientModel>(ingredient));
         }
+
+        //[HttpGet]
+        //public ActionResult<List<string>> Get(string id)
+        //{
+        //    var recipe = this.ingredientsRepository.GetRecipeById(id);
+
+        //    if (recipe == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var instructions = this.ingredientsRepository.GetInstructionsOfRecipe(id);
+
+        //    return instructions;
+        //}
     }
 }
