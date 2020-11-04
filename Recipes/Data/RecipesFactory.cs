@@ -55,7 +55,7 @@ namespace Recipes.Data
                         {
                             new Ingredient
                             {
-                                BasicIngredient = BasicIngredient.TOMATOES,
+                                Name = "tomatoes",
                                 Measure = new IngredientMeasure
                                 {
                                     UnitOfMeasure = UnitOfMeasure.Pieces,

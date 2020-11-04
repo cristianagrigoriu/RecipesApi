@@ -79,12 +79,10 @@ namespace Recipes.Controllers
         [HttpGet("search")]
         public ActionResult<RecipeModel[]> GetRecipeByIngredient([FromQuery] string ingredient)
         {
-            Enum.TryParse(ingredient.ToUpper(), out BasicIngredient basicIngredient);
-
             var foundRecipes = this.recipesRepository
                 .GetAllRecipes().Result
                 .Where(x => x.Ingredients
-                    .Any(y => y.BasicIngredient == basicIngredient));
+                    .Any(y => y.Name == ingredient));
 
             return this.mapper.Map<RecipeModel[]>(foundRecipes);
         }

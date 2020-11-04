@@ -2,7 +2,7 @@
 {
     public class IngredientModel
     {
-        public BasicIngredient BasicIngredient { get; set; }
+        public string Name { get; set; }
         public IngredientMeasure Measure { get; set; }
     }
 }

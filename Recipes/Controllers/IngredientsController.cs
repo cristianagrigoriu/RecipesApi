@@ -7,11 +7,11 @@
 
     [Route(MainRoutes.InstructionsRoute)]
     [ApiController]
-    public class InstructionsController : ControllerBase
+    public class IngredientsController : ControllerBase
     {
         private readonly IRecipesRepository recipesRepository;
 
-        public InstructionsController(IRecipesRepository recipesRepository)
+        public IngredientsController(IRecipesRepository recipesRepository)
         {
             this.recipesRepository = recipesRepository;
         }

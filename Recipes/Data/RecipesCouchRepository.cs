@@ -1,14 +1,10 @@
 ﻿namespace Recipes.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using MyCouch;
-    using MyCouch.Net;
-    using MyCouch.Requests;
-    using Newtonsoft.Json;
 
     public class RecipesCouchRepository : IRecipesRepository
     {
