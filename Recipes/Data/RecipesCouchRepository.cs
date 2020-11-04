@@ -47,11 +47,9 @@
         public void UpdateRecipe(Recipe updatedRecipe)
         {
             var existingRecipe = store.GetHeaderAsync(updatedRecipe.Id).Result;
-            var doc = JsonConvert.SerializeObject(updatedRecipe);
-            //this.store.StoreAsync(existingRecipe.Id, existingRecipe.Rev, doc).Wait();
-            //does not store object with doc type anymore!!!
+            updatedRecipe.Rev = existingRecipe.Rev;
 
-            this.store.SetAsync(existingRecipe.Id, doc);
+            this.store.StoreAsync<Recipe>(updatedRecipe);
         }
 
         public List<string> GetInstructionsOfRecipe(string id)

@@ -10,10 +10,12 @@
         [EnumMember(Value = "unknown")]
         Unknown = 0,
         [EnumMember(Value = "grams")]
-        Grams,
+        Grams = 1,
         [EnumMember(Value = "pieces")]
-        Pieces,
+        Pieces = 2,
         [EnumMember(Value = "liter")]
-        Liter
+        Liter = 3,
+        [EnumMember(Value = "cups")]
+        Cups = 4
     }
 }
