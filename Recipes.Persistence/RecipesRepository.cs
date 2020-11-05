@@ -1,7 +1,8 @@
-﻿namespace Recipes.Data
+﻿namespace Recipes.Persistence
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Domain;
 
     public class RecipesRepository : IRecipesRepository
     {

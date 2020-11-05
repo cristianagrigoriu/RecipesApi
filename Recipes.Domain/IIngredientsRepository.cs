@@ -1,4 +1,4 @@
-﻿namespace Recipes.Data
+﻿namespace Recipes.Domain
 {
     public interface IIngredientsRepository
     {

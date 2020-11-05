@@ -1,4 +1,4 @@
-﻿namespace Recipes.Models
+﻿namespace Recipes.Domain
 {
     using System.Runtime.Serialization;
     using Newtonsoft.Json;

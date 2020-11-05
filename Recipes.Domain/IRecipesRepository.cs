@@ -1,8 +1,7 @@
-﻿namespace Recipes.Data
+﻿namespace Recipes.Domain
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Models;
 
     public interface IRecipesRepository
     {

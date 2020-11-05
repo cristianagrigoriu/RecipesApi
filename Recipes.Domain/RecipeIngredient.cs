@@ -1,6 +1,4 @@
-﻿using Recipes.Models;
-
-namespace Recipes.Data
+﻿namespace Recipes.Domain
 {
     public class RecipeIngredient
     {

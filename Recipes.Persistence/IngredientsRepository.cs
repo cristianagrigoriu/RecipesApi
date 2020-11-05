@@ -1,5 +1,6 @@
-﻿namespace Recipes.Data
+﻿namespace Recipes.Persistence
 {
+    using Domain;
     using Microsoft.Extensions.Options;
     using MyCouch;
 

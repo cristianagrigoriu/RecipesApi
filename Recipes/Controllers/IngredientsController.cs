@@ -4,6 +4,7 @@
     using AutoMapper;
     using Constants;
     using Data;
+    using Domain;
     using Microsoft.AspNetCore.Mvc;
     using Models;
 

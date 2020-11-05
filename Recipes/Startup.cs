@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 namespace Recipes
 {
     using Data;
+    using Domain;
+    using Persistence;
 
     public class Startup
     {

@@ -10,6 +10,7 @@ namespace Recipes.Controllers
 {
     using System.Threading.Tasks;
     using Constants;
+    using Domain;
 
     [Route(MainRoutes.RecipesRoute)]
     [ApiController]
@@ -77,6 +78,7 @@ namespace Recipes.Controllers
         ///<param name="ingredient"></param>
         ///<returns></returns>
         [HttpGet("search")]
+        //add time and category
         public ActionResult<RecipeModel[]> GetRecipeByIngredient([FromQuery] string ingredient)
         {
             var foundRecipes = this.recipesRepository
@@ -152,6 +154,12 @@ namespace Recipes.Controllers
             this.recipesRepository.DeleteRecipe(id);
 
             return Ok();
+        }
+
+        [HttpGet("{maxTime}")]
+        public void GetRecipesByTime(double maxTime)
+        {
+
         }
     }
 }

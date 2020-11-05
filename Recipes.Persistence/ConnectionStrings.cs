@@ -1,4 +1,4 @@
-﻿namespace Recipes
+﻿namespace Recipes.Persistence
 {
     public class ConnectionStrings
     {

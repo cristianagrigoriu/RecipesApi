@@ -1,10 +1,9 @@
-﻿using Recipes.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Recipes.Data
+namespace Recipes.Persistence
 {
     using System.Linq;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Domain;
 
     public static class RecipesFactory
     {

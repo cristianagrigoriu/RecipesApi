@@ -17,5 +17,9 @@ namespace Recipes.Models
         public double TimeInMinutes { get; set; }
 
         public List<RecipeIngredientModel> Ingredients { get; set; }
+
+        //Instructions
+
+        //categorie - mic dejun, ...
     }
 }

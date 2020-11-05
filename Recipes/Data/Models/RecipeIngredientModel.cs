@@ -3,6 +3,6 @@
     public class RecipeIngredientModel
     {
         public string Name { get; set; }
-        public IngredientMeasure Measure { get; set; }
+        public IngredientMeasureModel MeasureModel { get; set; }
     }
 }

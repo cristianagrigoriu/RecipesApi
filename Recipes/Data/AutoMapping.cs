@@ -3,6 +3,8 @@ using Recipes.Models;
 
 namespace Recipes.Data
 {
+    using Domain;
+
     public class AutoMapping : Profile
     {
         public AutoMapping()
