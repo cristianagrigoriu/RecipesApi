@@ -73,16 +73,16 @@ namespace Recipes.Controllers
         }
 
         ///<summary>
-        ///Filter all recipes with a specified ingredient
+        ///Filter all recipes with the specified ingredients
         ///</summary>
-        ///<param name="ingredient"></param>
+        ///<param name="ingredients"></param>
         ///<returns></returns>
         [HttpGet("search")]
         //add time and category
-        public async Task<ActionResult<RecipeModel[]>> GetRecipeByIngredient([FromQuery] string ingredient)
+        public async Task<ActionResult<RecipeModel[]>> GetRecipeByIngredient([FromQuery] string[] ingredients)
         {
             var foundRecipes = await this.recipesRepository
-                .GetRecipeByIngredients(new[] {ingredient});
+                .GetRecipeByIngredients(ingredients);
 
             return this.mapper.Map<RecipeModel[]>(foundRecipes);
         }

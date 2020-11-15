@@ -23,11 +23,11 @@
              <response code="404">Recipe with the specified id not found</response>
              <response code="500">Server error</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.GetRecipeByIngredient(System.String)">
+        <member name="M:Recipes.Controllers.RecipesController.GetRecipeByIngredient(System.String[])">
             <summary>
-            Filter all recipes with a specified ingredient
+            Filter all recipes with the specified ingredients
             </summary>
-            <param name="ingredient"></param>
+            <param name="ingredients"></param>
             <returns></returns>
         </member>
         <member name="M:Recipes.Controllers.RecipesController.AddRecipe(Recipes.Models.RecipeModel)">

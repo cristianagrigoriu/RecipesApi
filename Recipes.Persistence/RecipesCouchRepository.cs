@@ -40,25 +40,8 @@
 
         public async Task<IEnumerable<Recipe>> GetRecipeByIngredients(string[] ingredients)
         {
-            //var name = "Delicious and preppy";
-            //var request = new FindRequest().Configure(q => q
-            //    .SelectorExpression($"{{\"basicDetails\": \"{name}\"}}"));
-            //.Fields("title"));
+            var ingredientsString = ingredients.GetStringFormattedAsArray();
 
-            //{ "ingredientList": { "$all": [ "oatmeal","milk"] } }
-
-            //const string e = "{\"$and\":[{\"author.age\":{\"$gt\":21}},{\"yearsActive\":{\"$lt\":5}}]}";
-
-            
-            //var request1 = new FindRequest().Configure(q => q
-            //    .SelectorExpression("{\"ingredientList\": {\"$all\": [\"oatmeal\", \"milk\"]}}"));
-
-            var i = new string[] { "oatmeal", "milk" };
-
-            var ingredientsString = i.GetStringFormattedAsArray();
-
-            //var iString = $"[\"{i[0]}\", \"{i[1]}\"]";
-            //var x = $"{{\"ingredientList\": {{\"$all\": [{iString}]}}}}";
             var request2 = new FindRequest().Configure(q => 
                 q.SelectorExpression
                 (
