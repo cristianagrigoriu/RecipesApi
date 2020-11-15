@@ -7,7 +7,6 @@
     using Microsoft.Extensions.Options;
     using MyCouch;
     using MyCouch.Requests;
-    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     public class RecipesCouchRepository : IRecipesRepository
@@ -60,15 +59,17 @@
 
             //var iString = $"[\"{i[0]}\", \"{i[1]}\"]";
             //var x = $"{{\"ingredientList\": {{\"$all\": [{iString}]}}}}";
-            var request2 = new FindRequest().Configure(q => q
-            .SelectorExpression($"{{\"ingredientList\": {{\"$all\": {ingredientsString}}}}}"));
+            var request2 = new FindRequest().Configure(q => 
+                q.SelectorExpression
+                (
+                    $"{{\"ingredientList\": {{\"$all\": {ingredientsString}}}}}"
+                )
+            );
 
             var response = this.store.Client.Queries.FindAsync<Recipe>(request2).Result;
 
             return response.Docs;
         }
-
-        
 
         public void DeleteRecipe(string id)
         {
@@ -86,6 +87,21 @@
         public List<string> GetInstructionsOfRecipe(string id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime)
+        {
+            var selector = new JObject
+            {
+                {"timeInMinutes", new JObject{{"$lte", maxTime}}}
+            };
+
+            var request = new FindRequest()
+                .Configure(x => x.SelectorExpression(selector.ToString()));
+
+            var response = this.store.Client.Queries.FindAsync<Recipe>(request).Result;
+
+            return response.Docs;
         }
     }
 }

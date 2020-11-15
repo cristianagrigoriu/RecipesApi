@@ -18,5 +18,7 @@
         void UpdateRecipe(Recipe updatedRecipe);
 
         List<string> GetInstructionsOfRecipe(string id);
+
+        Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime);
     }
 }

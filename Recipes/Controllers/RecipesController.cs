@@ -154,10 +154,12 @@ namespace Recipes.Controllers
             return Ok();
         }
 
-        [HttpGet("{maxTime}")]
-        public void GetRecipesByTime(double maxTime)
+        [HttpGet("time/{maxTime}")]
+        public async Task<ActionResult<RecipeModel[]>> GetRecipesByTime(double maxTime)
         {
+            var recipesByTime = await this.recipesRepository.GetRecipesByTime(maxTime);
 
+            return this.mapper.Map<RecipeModel[]>(recipesByTime);
         }
     }
 }

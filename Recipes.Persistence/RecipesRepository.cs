@@ -49,5 +49,12 @@
         {
             return RecipesFactory.GetInstructionsOfRecipe(id);
         }
+
+        public async Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime)
+        {
+            return RecipesFactory
+                .GetRecipesWithBasicDetails()
+                .Where(x => x.TimeInMinutes <= maxTime);
+        }
     }
 }
