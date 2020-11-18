@@ -16,6 +16,8 @@ namespace Recipes.Domain
 
         public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
 
+        public List<string> IngredientList { get; set; }
+
         public List<string> Instructions { get; set; }
     }
 }

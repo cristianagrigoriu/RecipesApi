@@ -30,6 +30,9 @@
 
         public void AddRecipe(Recipe newRecipe)
         {
+            newRecipe.IngredientList = newRecipe.Ingredients.Any()
+                ? newRecipe.Ingredients.Select(x => x.Name).ToList()
+                : new List<string>();
             this.store.StoreAsync(newRecipe).Wait();
         }
 
@@ -40,18 +43,24 @@
 
         public async Task<IEnumerable<Recipe>> GetRecipeByIngredients(string[] ingredients)
         {
-            var ingredientsString = ingredients.GetStringFormattedAsArray();
+            if (ingredients.Any())
+            {
 
-            var request2 = new FindRequest().Configure(q => 
-                q.SelectorExpression
-                (
-                    $"{{\"ingredientList\": {{\"$all\": {ingredientsString}}}}}"
-                )
-            );
+                var ingredientsString = ingredients.GetStringFormattedAsArray();
 
-            var response = this.store.Client.Queries.FindAsync<Recipe>(request2).Result;
+                var request2 = new FindRequest().Configure(q =>
+                    q.SelectorExpression
+                    (
+                        $"{{\"ingredientList\": {{\"$all\": {ingredientsString}}}}}"
+                    )
+                );
 
-            return response.Docs;
+                var response = this.store.Client.Queries.FindAsync<Recipe>(request2).Result;
+
+                return response.Docs;
+            }
+
+            return this.GetAllRecipes().Result;
         }
 
         public void DeleteRecipe(string id)
