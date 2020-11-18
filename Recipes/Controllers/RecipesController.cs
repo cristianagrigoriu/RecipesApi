@@ -161,5 +161,13 @@ namespace Recipes.Controllers
 
             return this.mapper.Map<RecipeModel[]>(recipesByTime);
         }
+
+        [HttpGet("category/{category}")]
+        public async Task<ActionResult<RecipeModel[]>> GetRecipesByTime(string category)
+        {
+            var recipesByTime = await this.recipesRepository.GetRecipesByCategory(category);
+
+            return this.mapper.Map<RecipeModel[]>(recipesByTime);
+        }
     }
 }

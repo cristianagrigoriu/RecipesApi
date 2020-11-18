@@ -17,5 +17,20 @@
 
             return iString;
         }
+
+        public static string ToUpperFirstLetter(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return null;
+            }
+
+            if (input.Length == 1)
+            {
+                return input.ToUpper();
+            }
+
+            return $"{char.ToUpper(input[0])}{input.Substring(1)}";
+        }
     }
 }

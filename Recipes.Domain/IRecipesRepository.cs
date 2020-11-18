@@ -20,5 +20,7 @@
         List<string> GetInstructionsOfRecipe(string id);
 
         Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime);
+
+        Task<IEnumerable<Recipe>> GetRecipesByCategory(string category);
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Recipes.Persistence
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -86,6 +87,23 @@
             var selector = new JObject
             {
                 {"timeInMinutes", new JObject{{"$lte", maxTime}}}
+            };
+
+            var request = new FindRequest()
+                .Configure(x => x.SelectorExpression(selector.ToString()));
+
+            var response = this.store.Client.Queries.FindAsync<Recipe>(request).Result;
+
+            return response.Docs;
+        }
+
+        public async Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
+        {
+            var categoryToFind = (int)(Category)Enum.Parse(typeof(Category), category.ToUpperFirstLetter());
+
+            var selector = new JObject
+            {
+                {"category",  categoryToFind}
             };
 
             var request = new FindRequest()

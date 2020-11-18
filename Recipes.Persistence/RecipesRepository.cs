@@ -56,5 +56,12 @@
                 .GetRecipesWithBasicDetails()
                 .Where(x => x.TimeInMinutes <= maxTime);
         }
+
+        public async Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
+        {
+            return RecipesFactory
+                .GetRecipesWithBasicDetails()
+                .Where(x => x.Category.ToString() == category);
+        }
     }
 }

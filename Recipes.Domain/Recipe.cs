@@ -2,6 +2,8 @@
 
 namespace Recipes.Domain
 {
+    using System.ComponentModel;
+
     public class Recipe
     {
         public string Id { get; set; }
@@ -13,6 +15,8 @@ namespace Recipes.Domain
         public string BasicDetails { get; set; }
 
         public double TimeInMinutes { get; set; }
+
+        public Category Category { get; set; }
 
         public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
 
