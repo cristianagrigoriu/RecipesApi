@@ -12,10 +12,13 @@
 
     public class RecipesCouchRepository : IRecipesRepository
     {
+        private readonly LanguageService languageService;
         private MyCouchStore store;
 
-        public RecipesCouchRepository(IOptions<ConnectionStrings> connectionStrings)
+        public RecipesCouchRepository(IOptions<ConnectionStrings> connectionStrings,
+            LanguageService languageService)
         {
+            this.languageService = languageService;
             this.store = new MyCouchStore(connectionStrings.Value.CouchDb, "recipes");
         }
 
@@ -31,6 +34,8 @@
 
         public void AddRecipe(Recipe newRecipe)
         {
+            var currentLanguage = this.languageService.CurrentLanguage;
+
             newRecipe.IngredientList = newRecipe.Ingredients.Any()
                 ? newRecipe.Ingredients.Select(x => x.Name).ToList()
                 : new List<string>();
@@ -46,7 +51,6 @@
         {
             if (ingredients.Any())
             {
-
                 var ingredientsString = ingredients.GetStringFormattedAsArray();
 
                 var request2 = new FindRequest().Configure(q =>
@@ -99,11 +103,11 @@
 
         public async Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
         {
-            var categoryToFind = (int)(Category)Enum.Parse(typeof(Category), category.ToUpperFirstLetter());
+            var categoryToFind = (Category)Enum.Parse(typeof(Category), category.ToUpperFirstLetter());
 
             var selector = new JObject
             {
-                {"category",  categoryToFind}
+                {"category",  categoryToFind.ToString().ToLower()}
             };
 
             var request = new FindRequest()

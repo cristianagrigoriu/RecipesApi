@@ -163,7 +163,7 @@ namespace Recipes.Controllers
         }
 
         [HttpGet("category/{category}")]
-        public async Task<ActionResult<RecipeModel[]>> GetRecipesByTime(string category)
+        public async Task<ActionResult<RecipeModel[]>> GetRecipesByCategory(string category)
         {
             var recipesByTime = await this.recipesRepository.GetRecipesByCategory(category);
 

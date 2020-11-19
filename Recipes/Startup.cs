@@ -7,8 +7,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace Recipes
 {
+    using System.Runtime.InteropServices.ComTypes;
     using Data;
     using Domain;
+    using Microsoft.AspNetCore.Http;
     using Persistence;
 
     public class Startup
@@ -34,6 +36,15 @@ namespace Recipes
             services.AddTransient<IRecipesRepository, RecipesCouchRepository>();
 
             services.AddTransient<IIngredientsRepository, IngredientsRepository>();
+
+            services.AddHttpContextAccessor();
+
+            services.AddTransient(serviceProvider =>
+            {
+                var currentLanguage = serviceProvider.GetService<IHttpContextAccessor>().HttpContext.Request.Headers["Language"];
+
+                return new LanguageService(currentLanguage);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

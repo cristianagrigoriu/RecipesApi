@@ -19,7 +19,7 @@ namespace Recipes.Models
 
         public List<RecipeIngredientModel> Ingredients { get; set; }
 
-        public Category Category { get; set; }
+        public string Category { get; set; }
 
         //Instructions
 
