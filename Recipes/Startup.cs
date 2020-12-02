@@ -37,6 +37,8 @@ namespace Recipes
 
             services.AddTransient<IIngredientsRepository, IngredientsRepository>();
 
+            services.AddTransient<ITokenProvider, JwtTokenProvider>();
+
             services.AddHttpContextAccessor();
 
             services.AddTransient(serviceProvider =>
