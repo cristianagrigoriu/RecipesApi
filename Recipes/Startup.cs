@@ -2,15 +2,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Recipes
 {
-    using System.Runtime.InteropServices.ComTypes;
-    using Data;
+    using System;
     using Domain;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.IdentityModel.Tokens;
     using Persistence;
 
     public class Startup
@@ -43,9 +45,44 @@ namespace Recipes
 
             services.AddTransient(serviceProvider =>
             {
-                var currentLanguage = serviceProvider.GetService<IHttpContextAccessor>().HttpContext.Request.Headers["Language"];
+                var currentLanguage = serviceProvider.GetService<IHttpContextAccessor>().HttpContext.Request
+                    .Headers["Language"];
 
                 return new LanguageService(currentLanguage);
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            //based on parameters set here, should do token validation
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //ValidateIssuer = true,
+                    //ValidateAudience = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String("ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==")),
+                    //ValidAudience = "http://localhost:6600",
+                    ValidateAudience = false,
+                    ValidIssuer = "http://localhost:6600"
+                    //ValidateIssuerSigningKey = true
+                    //ValidIssuer = jwtSettings.Issuer,
+                    //ValidAudience = jwtSettings.Audience,
+                    //IssuerSigningKey = jwtSettings.SecurityKey,
+                };
+            });
+
+            //ToDo configure swagger to be able to send token/request header
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme,
+                        JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
             });
         }
 
@@ -64,6 +101,8 @@ namespace Recipes
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

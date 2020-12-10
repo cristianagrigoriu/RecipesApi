@@ -10,6 +10,7 @@
     {
         public string GenerateToken(string username)
         {
+            //ToDo keep secret in appsettings
             var secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
             var key = Convert.FromBase64String(secret);
             var securityKey = new SymmetricSecurityKey(key);
@@ -17,7 +18,8 @@
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature),
+                Issuer = "http://localhost:6600"
             };
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
