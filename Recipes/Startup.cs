@@ -31,6 +31,12 @@ namespace Recipes
 
             services.ConfigureSwagger();
 
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ApiKeyPolicy",
+            //        policyBuilder => policyBuilder.AddRequirements(new ApiKeyRequirement()));
+            //});
+
             services.AddAutoMapper(typeof(Startup));
 
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
@@ -79,7 +85,8 @@ namespace Recipes
 
             services.AddAuthorization(options =>
             {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme,
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(
+                        JwtBearerDefaults.AuthenticationScheme,
                         JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .Build();
