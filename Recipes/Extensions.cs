@@ -7,9 +7,11 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using Persistence;
 
     public static class Extensions
     {
@@ -60,8 +62,10 @@
             );
         }
 
-        public static AuthenticationBuilder AddJwtAuthentication(this IServiceCollection serviceCollection)
+        public static AuthenticationBuilder AddJwtAuthentication(this IServiceCollection serviceCollection, Func<IConfigurationSection> configuration)
         {
+            var jwtSettings = ToJwtSettings(configuration);
+
             return serviceCollection.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,9 +76,9 @@
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String("ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(jwtSettings.BaseSecret)),
                         ValidateAudience = false,
-                        ValidIssuer = "http://localhost:6600"
+                        ValidIssuer = jwtSettings.Issuer
                     };
                 });
         }
@@ -105,6 +109,16 @@
                     await context.Response.WriteAsync("Something went wrong");
                 });
             });
+        }
+
+        private static JwtSettings ToJwtSettings(Func<IConfigurationSection> configuration)
+        {
+            return new JwtSettings
+            {
+                BaseSecret = configuration()["BaseSecret"],
+                Issuer = configuration()["Issuer"],
+                ExpiryTimeInMinutes = int.Parse(configuration()["ExpiryTimeInMinutes"])
+            };
         }
     }
 }

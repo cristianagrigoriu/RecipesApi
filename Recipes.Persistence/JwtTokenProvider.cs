@@ -4,22 +4,30 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using Domain;
+    using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
     public class JwtTokenProvider : ITokenProvider
     {
+        private readonly IOptions<JwtSettings> jwtSettings;
+
+        public JwtTokenProvider(IOptions<JwtSettings> jwtSettings)
+        {
+            this.jwtSettings = jwtSettings;
+        }
+
         public string GenerateToken(string username)
         {
             //ToDo 1 keep secret in appsettings
-            var secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
+            var secret = this.jwtSettings.Value.BaseSecret;
             var key = Convert.FromBase64String(secret);
             var securityKey = new SymmetricSecurityKey(key);
             var descriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddMinutes(this.jwtSettings.Value.ExpiryTimeInMinutes),
                 SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature),
-                Issuer = "http://localhost:6600"
+                Issuer = this.jwtSettings.Value.Issuer
             };
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();

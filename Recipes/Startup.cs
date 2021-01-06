@@ -28,6 +28,7 @@ namespace Recipes
             services.ConfigureSwagger()
                 .AddAutoMapper(typeof(Startup))
                 .Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"))
+                .Configure<JwtSettings>(Configuration.GetSection("JwtSettings"))
                 .AddTransient<IRecipesRepository, RecipesCouchRepository>()
                 .AddTransient<IIngredientsRepository, IngredientsRepository>()
                 .AddTransient<ITokenProvider, JwtTokenProvider>()
@@ -40,7 +41,7 @@ namespace Recipes
                     return new LanguageService(currentLanguage);
                 });
 
-            services.AddJwtAuthentication();
+            services.AddJwtAuthentication(() => this.Configuration.GetSection("JwtSettings"));
             services.AddJwtAuthorization();
         }
 
