@@ -21,7 +21,7 @@ namespace Recipes.Controllers
         [HttpPost("authenticate")]
         public ActionResult<string> GetTokenForUser(UserModel user)
         {
-            //ToDo check if user is valid - user + password exist (criptat parole dupa)
+            //ToDo 2 check if user is valid - user + password exist (criptat parole dupa)
             //ToDo diferenta criptat vs hashing pentru parole
 
             var token = this.tokenProvider.GenerateToken(user.Username);

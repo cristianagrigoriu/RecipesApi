@@ -10,7 +10,7 @@
     {
         public string GenerateToken(string username)
         {
-            //ToDo keep secret in appsettings
+            //ToDo 1 keep secret in appsettings
             var secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
             var key = Convert.FromBase64String(secret);
             var securityKey = new SymmetricSecurityKey(key);
