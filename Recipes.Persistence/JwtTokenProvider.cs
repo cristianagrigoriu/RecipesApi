@@ -18,7 +18,6 @@
 
         public string GenerateToken(string username)
         {
-            //ToDo 1 keep secret in appsettings
             var secret = this.jwtSettings.Value.BaseSecret;
             var key = Convert.FromBase64String(secret);
             var securityKey = new SymmetricSecurityKey(key);

@@ -31,6 +31,7 @@ namespace Recipes
                 .Configure<JwtSettings>(Configuration.GetSection("JwtSettings"))
                 .AddTransient<IRecipesRepository, RecipesCouchRepository>()
                 .AddTransient<IIngredientsRepository, IngredientsRepository>()
+                .AddTransient<IUserRepository, UserCouchRepository>()
                 .AddTransient<ITokenProvider, JwtTokenProvider>()
                 .AddHttpContextAccessor()
                 .AddTransient(serviceProvider =>
@@ -41,6 +42,7 @@ namespace Recipes
                     return new LanguageService(currentLanguage);
                 });
 
+            //ToDo check auth with api key, too
             services.AddJwtAuthentication(() => this.Configuration.GetSection("JwtSettings"));
             services.AddJwtAuthorization();
         }

@@ -2,8 +2,6 @@
 
 namespace Recipes.Domain
 {
-    using System.ComponentModel;
-
     public class Recipe
     {
         public string Id { get; set; }

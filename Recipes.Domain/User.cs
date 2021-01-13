@@ -1,11 +1,9 @@
-﻿namespace Recipes.Models
+﻿namespace Recipes.Domain
 {
-    public class UserModel
+    public class User
     {
         public string Username { get; set; }
 
         public string Password { get; set; }
-
-        //ToDo 1 add display name, add to token
     }
 }

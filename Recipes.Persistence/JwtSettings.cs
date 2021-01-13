@@ -7,5 +7,7 @@
         public string Issuer { get; set; }
 
         public int ExpiryTimeInMinutes { get; set; }
+
+        //ToDo Add Audience?
     }
 }
