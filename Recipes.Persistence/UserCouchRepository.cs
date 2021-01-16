@@ -48,7 +48,14 @@
 
             var response = await this.store.Client.Queries.FindAsync<User>(request);
 
-            return response.Docs?[0];
+            return response != null && response.Docs.Any() 
+                ? response.Docs[0]
+                : null;
+        }
+
+        public void AddUser(User newUser)
+        {
+            this.store.StoreAsync(newUser).Wait();
         }
     }
 }

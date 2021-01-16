@@ -10,5 +10,7 @@
         Task<User> GetUserById(string id);
 
         Task<User> GetuserByUsername(string username);
+
+        void AddUser(User newUser);
     }
 }

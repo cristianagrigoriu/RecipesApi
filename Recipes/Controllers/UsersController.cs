@@ -54,7 +54,10 @@ namespace Recipes.Controllers
         [HttpPost]
         public ActionResult<UserModel> AddUser(UserModel newUser)
         {
-            return Ok(new UserModel { Username = newUser.Username, Password = newUser.Password });
+            var userToAdd = this.mapper.Map<User>(newUser);
+            this.userRepository.AddUser(userToAdd);
+
+            return Created("", this.mapper.Map<UserModel>(userToAdd));
         }
 
         [HttpPost("favourites")]
