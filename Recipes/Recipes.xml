@@ -53,14 +53,32 @@
              <response code="404">Recipe with the specified id not found</response>
         </member>
         <member name="M:Recipes.Controllers.RecipesController.DeleteRecipe(System.String)">
-             <summary>
-             Deletes a recipe with the given id
-             </summary>
-             <param name="id">
+            <summary>
+            Deletes a recipe with the given id
+            </summary>
+            <param name="id">
             Id of the recipe to be deleted
-             </param>
-             <response code="200">Successful operation</response>
-             <response code="404">Recipe with the specified id not found</response>
+            </param>
+            <response code="200">Successful operation</response>
+            <response code="404">Recipe with the specified id not found</response>
+        </member>
+        <member name="M:Recipes.Controllers.RecipesController.GetRecipesByTime(System.Double)">
+            <summary>
+            Get all recipes that take at most the given amount of minutes
+            </summary>
+            <param name="maxTime">
+            Maximum amount of time a recipe can take
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Recipes.Controllers.RecipesController.GetRecipesByCategory(System.String)">
+            <summary>
+            Get all recipes in a certain category
+            </summary>
+            <param name="category">
+            Name of the category of the recipe
+            </param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -36,9 +36,6 @@
         {
             var currentLanguage = this.languageService.CurrentLanguage;
 
-            newRecipe.IngredientList = newRecipe.Ingredients.Any()
-                ? newRecipe.Ingredients.Select(x => x.Name).ToList()
-                : new List<string>();
             this.store.StoreAsync(newRecipe).Wait();
         }
 
@@ -75,9 +72,6 @@
 
         public void UpdateRecipe(Recipe updatedRecipe)
         {
-            var existingRecipe = store.GetHeaderAsync(updatedRecipe.Id).Result;
-            updatedRecipe.Rev = existingRecipe.Rev;
-
             this.store.StoreAsync<Recipe>(updatedRecipe);
         }
 

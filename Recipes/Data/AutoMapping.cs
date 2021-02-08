@@ -10,7 +10,8 @@ namespace Recipes.Data
         public AutoMapping()
         {
             CreateMap<Recipe, RecipeModel>();
-            CreateMap<RecipeModel, Recipe>();
+            CreateMap<RecipeModel, Recipe>().
+                ForMember(x => x.Id, opt => opt.Ignore()); //ToDo research
 
             CreateMap<RecipeIngredient, RecipeIngredientModel>();
             CreateMap<RecipeIngredientModel, RecipeIngredient>();

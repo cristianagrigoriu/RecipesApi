@@ -15,7 +15,7 @@
         Pieces = 2,
         [EnumMember(Value = "liter")]
         Liter = 3,
-        [EnumMember(Value = "cups")]
+        [EnumMember(Value = "cups")] //spoons, too?
         Cups = 4
     }
 }

@@ -4,18 +4,18 @@
     {
         public static string GetStringFormattedAsArray(this string[] input)
         {
-            string iString = "[";
+            string queryString = "[";
             foreach (string word in input)
             {
-                iString += $"\"{word}\", ";
+                queryString += $"\"{word}\", ";
             }
 
-            var lastComma = iString.LastIndexOf(',');
-            iString = iString.Remove(lastComma, 1);
+            var lastComma = queryString.LastIndexOf(',');
+            queryString = queryString.Remove(lastComma, 1);
 
-            iString = $"{iString}]";
+            queryString = $"{queryString}]";
 
-            return iString;
+            return queryString;
         }
 
         public static string ToUpperFirstLetter(this string input)

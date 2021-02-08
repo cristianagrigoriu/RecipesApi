@@ -124,7 +124,7 @@ namespace Recipes.Controllers
             {
                 return NotFound($"Could not find recipe with id = {id}");
             }
-
+            
             this.mapper.Map(updatedRecipe, existingRecipe.Result);
 
             this.recipesRepository.UpdateRecipe(existingRecipe.Result);
@@ -136,7 +136,7 @@ namespace Recipes.Controllers
         /// Deletes a recipe with the given id
         /// </summary>
         /// <param name="id">
-        ///Id of the recipe to be deleted
+        /// Id of the recipe to be deleted
         /// </param>
         /// <response code="200">Successful operation</response>
         /// <response code="404">Recipe with the specified id not found</response>
@@ -154,6 +154,13 @@ namespace Recipes.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Get all recipes that take at most the given amount of minutes
+        /// </summary>
+        /// <param name="maxTime">
+        /// Maximum amount of time a recipe can take
+        /// </param>
+        /// <returns></returns>
         [HttpGet("time/{maxTime}")]
         public async Task<ActionResult<RecipeModel[]>> GetRecipesByTime(double maxTime)
         {
@@ -162,6 +169,13 @@ namespace Recipes.Controllers
             return this.mapper.Map<RecipeModel[]>(recipesByTime);
         }
 
+        /// <summary>
+        /// Get all recipes in a certain category
+        /// </summary>
+        /// <param name="category">
+        /// Name of the category of the recipe
+        /// </param>
+        /// <returns></returns>
         [HttpGet("category/{category}")]
         public async Task<ActionResult<RecipeModel[]>> GetRecipesByCategory(string category)
         {
