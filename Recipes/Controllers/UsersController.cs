@@ -28,7 +28,7 @@ namespace Recipes.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult<string>> GetTokenForUser(UserModel user)
+        public async Task<ActionResult<string>> GetTokenForUser(UserModel user) //ToDo separate model for authenticate - only user and id
         {
             //ToDo (criptat parole dupa)
             //ToDo diferenta criptat vs hashing pentru parole
@@ -66,7 +66,7 @@ namespace Recipes.Controllers
         public async Task<ActionResult<UserModel>> SetRecipeAsFavourite(string recipeId)
         {
             var userName = this.HttpContext.User.Identity.Name;
-            var userToUpdate = await this.userRepository.GetUserByUsername(userName);
+            var userToUpdate = await this.userRepository.GetUserByUsername(userName); //ToDo separate database for claims?
 
             userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId);
 

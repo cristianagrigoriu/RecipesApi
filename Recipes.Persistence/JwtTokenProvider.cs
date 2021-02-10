@@ -23,7 +23,11 @@
             var securityKey = new SymmetricSecurityKey(key);
             var descriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }),
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(System.Security.Claims.ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.AddRecipeToFavourites, "true")
+                }),
                 Expires = DateTime.UtcNow.AddMinutes(this.jwtSettings.Value.ExpiryTimeInMinutes),
                 SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature),
                 Issuer = this.jwtSettings.Value.Issuer
