@@ -26,11 +26,12 @@
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(System.Security.Claims.ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.AddRecipeToFavourites, "true")
+                    new Claim(ClaimTypes.IsAdmin, "")
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(this.jwtSettings.Value.ExpiryTimeInMinutes),
                 SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature),
                 Issuer = this.jwtSettings.Value.Issuer
+                
             };
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();

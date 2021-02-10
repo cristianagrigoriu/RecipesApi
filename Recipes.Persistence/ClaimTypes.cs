@@ -2,6 +2,6 @@
 {
     public static class ClaimTypes
     {
-        public const string AddRecipeToFavourites = "http://www.recipes.com/claimtype/addRecipeToFavourites";
+        public const string IsAdmin = "http://www.recipes.com/claimtype/addRecipeToFavourites";
     }
 }

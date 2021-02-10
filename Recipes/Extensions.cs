@@ -93,6 +93,7 @@
                         JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .Build();
+                options.AddPolicy("ShouldBeAdmin", policy => policy.RequireClaim(ClaimTypes.IsAdmin));
             });
         }
 

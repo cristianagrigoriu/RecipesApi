@@ -63,12 +63,13 @@ namespace Recipes.Controllers
 
         [HttpPost("favourites")]
         [Authorize]
+        [Authorize(Policy = "ShouldBeAdmin")]
         public async Task<ActionResult<UserModel>> SetRecipeAsFavourite(string recipeId)
         {
             var userName = this.HttpContext.User.Identity.Name;
             var userToUpdate = await this.userRepository.GetUserByUsername(userName); //ToDo separate database for claims?
 
-            userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId);
+            userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId); //ToDo check if recipe already there
 
             var updatedUser = await this.userRepository.UpdateUser(userToUpdate);
             return Ok(this.mapper.Map<UserModel>(updatedUser));
