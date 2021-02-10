@@ -36,7 +36,7 @@
             return await this.store.GetByIdAsync<User>(id);
         }
 
-        public async Task<User> GetuserByUsername(string username)
+        public async Task<User> GetUserByUsername(string username)
         {
             var selector = new JObject
             {
@@ -56,6 +56,11 @@
         public void AddUser(User newUser)
         {
             this.store.StoreAsync(newUser).Wait();
+        }
+
+        public async Task<User> UpdateUser(User userToUpdate)
+        {
+            return await this.store.StoreAsync<User>(userToUpdate);
         }
     }
 }

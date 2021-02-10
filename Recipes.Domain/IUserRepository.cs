@@ -9,8 +9,9 @@
 
         Task<User> GetUserById(string id);
 
-        Task<User> GetuserByUsername(string username);
+        Task<User> GetUserByUsername(string username);
 
         void AddUser(User newUser);
+        Task<User> UpdateUser(User userToUpdate);
     }
 }

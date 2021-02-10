@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Recipes.Controllers
 {
@@ -35,7 +36,7 @@ namespace Recipes.Controllers
             //var users = await this.userRepository.GetAllUsers();
             //var userModels = this.mapper.Map<UserModel[]>(users);
 
-            var userFromDatabase = await this.userRepository.GetuserByUsername(user.Username);
+            var userFromDatabase = await this.userRepository.GetUserByUsername(user.Username);
 
             if (userFromDatabase == null)
             {
@@ -62,8 +63,15 @@ namespace Recipes.Controllers
 
         [HttpPost("favourites")]
         [Authorize]
-        public void SetRecipeAsFavourite(string recipeId)
+        public async Task<ActionResult<UserModel>> SetRecipeAsFavourite(string recipeId)
         {
+            var userName = this.HttpContext.User.Identity.Name;
+            var userToUpdate = await this.userRepository.GetUserByUsername(userName);
+
+            userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId);
+
+            var updatedUser = await this.userRepository.UpdateUser(userToUpdate);
+            return Ok(this.mapper.Map<UserModel>(updatedUser));
             //ToDo investigate claims in authorization
         }
     }
