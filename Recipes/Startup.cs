@@ -33,6 +33,7 @@ namespace Recipes
                 .AddTransient<IIngredientsRepository, IngredientsRepository>()
                 .AddTransient<IUserRepository, UserCouchRepository>()
                 .AddTransient<ITokenProvider, JwtTokenProvider>()
+                .AddTransient<IHashGenerator, Sha256HashGenerator>()
                 .AddHttpContextAccessor()
                 .AddTransient(serviceProvider =>
                 {

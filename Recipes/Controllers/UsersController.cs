@@ -17,22 +17,22 @@ namespace Recipes.Controllers
         private readonly ITokenProvider tokenProvider;
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
+        private readonly IHashGenerator hashGenerator;
 
         public UsersController(ITokenProvider tokenProvider,
             IUserRepository userRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IHashGenerator hashGenerator)
         {
             this.tokenProvider = tokenProvider;
             this.userRepository = userRepository;
             this.mapper = mapper;
+            this.hashGenerator = hashGenerator;
         }
 
         [HttpPost("authenticate")]
         public async Task<ActionResult<string>> GetTokenForUser(LoginUserModel user)
         {
-            //ToDo (criptat parole dupa)
-            //ToDo diferenta criptat vs hashing pentru parole
-
             var userFromDatabase = await this.userRepository.GetUserByUsername(user.Username);
 
             if (userFromDatabase == null)
@@ -40,7 +40,7 @@ namespace Recipes.Controllers
                 return NotFound();
             }
 
-            if (userFromDatabase.Password == user.Password)
+            if (this.PasswordIsCorrect(user.Password, userFromDatabase.Password))
             {
                 var token = this.tokenProvider.GenerateToken(user.Username);
                 return Ok(token);
@@ -58,6 +58,8 @@ namespace Recipes.Controllers
             {
                 return Conflict("Username is already taken");
             }
+
+            newUser.Password = this.hashGenerator.GenerateHashFor(newUser.Password);
 
             var userToAdd = this.mapper.Map<User>(newUser);
             this.userRepository.AddUser(userToAdd);
@@ -79,11 +81,17 @@ namespace Recipes.Controllers
                 return Ok(this.mapper.Map<UserModel>(userToUpdate)); //ToDo should return something else when recipe already there??
             }
 
-            userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId); //ToDo check if recipe already there
+            userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId);
 
             var updatedUser = await this.userRepository.UpdateUser(userToUpdate);
             return Ok(this.mapper.Map<UserModel>(updatedUser));
             //ToDo investigate claims in authorization
+        }
+
+        private bool PasswordIsCorrect(string inputPassword, string passwordFromDatabase)
+        {
+            var inputPasswordHash = this.hashGenerator.GenerateHashFor(inputPassword);
+            return inputPasswordHash == passwordFromDatabase;
         }
 
         //ToDo add comment to recipe
