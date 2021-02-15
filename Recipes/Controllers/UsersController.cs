@@ -28,7 +28,7 @@ namespace Recipes.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult<string>> GetTokenForUser(LoginUserModel user) //ToDo separate model for authenticate - only user and id
+        public async Task<ActionResult<string>> GetTokenForUser(LoginUserModel user)
         {
             //ToDo (criptat parole dupa)
             //ToDo diferenta criptat vs hashing pentru parole
@@ -71,6 +71,13 @@ namespace Recipes.Controllers
         {
             var userName = this.HttpContext.User.Identity.Name;
             var userToUpdate = await this.userRepository.GetUserByUsername(userName); //ToDo separate database for claims?
+
+            var isRecipeAlreadyFavourite = userToUpdate.FavouriteRecipes.Any(x => x == recipeId);
+
+            if (isRecipeAlreadyFavourite)
+            {
+                return Ok(this.mapper.Map<UserModel>(userToUpdate)); //ToDo should return something else when recipe already there??
+            }
 
             userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId); //ToDo check if recipe already there
 
