@@ -53,11 +53,17 @@ namespace Recipes.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserModel> AddUser(UserModel newUser)
+        public async Task<ActionResult<UserModel>> AddUser(UserModel newUser)
         {
+            var isUserNameTaken = (await this.userRepository.GetUserByUsername(newUser.Username)) != null;
+
+            if (isUserNameTaken)
+            {
+                return Conflict("Username is already taken");
+            }
+
             var userToAdd = this.mapper.Map<User>(newUser);
             this.userRepository.AddUser(userToAdd);
-
             return Created("", this.mapper.Map<UserModel>(userToAdd));
         }
 
@@ -75,5 +81,7 @@ namespace Recipes.Controllers
             return Ok(this.mapper.Map<UserModel>(updatedUser));
             //ToDo investigate claims in authorization
         }
+
+        //ToDo add comment to recipe
     }
 }
