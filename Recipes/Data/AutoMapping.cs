@@ -18,6 +18,9 @@ namespace Recipes.Data
 
             CreateMap<User, UserModel>();
             CreateMap<UserModel, User>();
+
+            CreateMap<User, LoginUserModel>();
+            CreateMap<LoginUserModel, User>();
         }
     }
 }

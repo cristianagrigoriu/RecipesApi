@@ -28,13 +28,10 @@ namespace Recipes.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult<string>> GetTokenForUser(UserModel user) //ToDo separate model for authenticate - only user and id
+        public async Task<ActionResult<string>> GetTokenForUser(LoginUserModel user) //ToDo separate model for authenticate - only user and id
         {
             //ToDo (criptat parole dupa)
             //ToDo diferenta criptat vs hashing pentru parole
-
-            //var users = await this.userRepository.GetAllUsers();
-            //var userModels = this.mapper.Map<UserModel[]>(users);
 
             var userFromDatabase = await this.userRepository.GetUserByUsername(user.Username);
 
@@ -53,7 +50,7 @@ namespace Recipes.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> AddUser(UserModel newUser)
+        public async Task<ActionResult<UserModel>> AddUser(LoginUserModel newUser)
         {
             var isUserNameTaken = (await this.userRepository.GetUserByUsername(newUser.Username)) != null;
 
