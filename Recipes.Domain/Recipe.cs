@@ -8,10 +8,10 @@ namespace Recipes.Domain
     {
         private List<RecipeIngredient> ingredients = new List<RecipeIngredient>();
 
-        [JsonProperty("_id")]
+        //[JsonProperty("_id")]
         public string Id { get; set; }
 
-        [JsonProperty("_rev")]
+        //[JsonProperty("_rev")]
         public string Rev { get; set; }
 
         public string Name { get; set; }
