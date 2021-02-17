@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Recipes.Data;
 using Recipes.Models;
-using System;
-using System.Linq;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace Recipes.Controllers
 {
@@ -18,13 +16,16 @@ namespace Recipes.Controllers
     {
         private readonly IMapper mapper;
         private readonly IRecipesRepository recipesRepository;
+        private readonly ILogger<RecipesController> logger;
 
         public RecipesController(
             IMapper mapper, 
-            IRecipesRepository recipesRepository)
+            IRecipesRepository recipesRepository,
+            ILogger<RecipesController> logger)
         {
             this.mapper = mapper;
             this.recipesRepository = recipesRepository;
+            this.logger = logger;
         }
 
         ///<summary>
@@ -38,6 +39,7 @@ namespace Recipes.Controllers
         [ProducesErrorResponseType(typeof(RecipeModel))]
         public async Task<ActionResult<RecipeModel[]>> GetAllRecipes()
         {
+            this.logger.LogInformation("Logging from Recipes Controller ❤");
             var foundRecipes = await this.recipesRepository.GetAllRecipes();
             var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
             return recipeModels;

@@ -1,4 +1,6 @@
-﻿namespace Recipes.Persistence
+﻿using Microsoft.Extensions.Logging;
+
+namespace Recipes.Persistence
 {
     using System;
     using System.Collections.Generic;
@@ -13,17 +15,23 @@
     public class RecipesCouchRepository : IRecipesRepository
     {
         private readonly LanguageService languageService;
+        private readonly ILogger<RecipesCouchRepository> logger;
         private MyCouchStore store;
 
+        //ToDo inject my couch client
         public RecipesCouchRepository(IOptions<ConnectionStrings> connectionStrings,
-            LanguageService languageService)
+            LanguageService languageService,
+            ILogger<RecipesCouchRepository> logger)
         {
             this.languageService = languageService;
+            this.logger = logger;
             this.store = new MyCouchStore(connectionStrings.Value.CouchDb, "recipes");
         }
 
         public async Task<IEnumerable<Recipe>> GetAllRecipes()
         {
+            logger.LogInformation("Logging from Couch Recipes Repository ❤💕👍");
+
             var query = new Query("recipesByName", "byName")
             {
                 IncludeDocs = true

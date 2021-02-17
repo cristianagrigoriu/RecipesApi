@@ -7,10 +7,8 @@
 
     public class RecipesRepository : IRecipesRepository
     {
-        //ToDo inject my couch client
         public RecipesRepository()
         {
-            //ToDo repo in proiect separat
         }
 
         public async Task<IEnumerable<Recipe>> GetAllRecipes()

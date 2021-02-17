@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Recipes.Controllers
 {
@@ -18,16 +19,19 @@ namespace Recipes.Controllers
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
         private readonly IHashGenerator hashGenerator;
+        private readonly ILogger<UsersController> logger;
 
         public UsersController(ITokenProvider tokenProvider,
             IUserRepository userRepository,
             IMapper mapper,
-            IHashGenerator hashGenerator)
+            IHashGenerator hashGenerator,
+            ILogger<UsersController> logger)
         {
             this.tokenProvider = tokenProvider;
             this.userRepository = userRepository;
             this.mapper = mapper;
             this.hashGenerator = hashGenerator;
+            this.logger = logger;
         }
 
         [HttpPost("authenticate")]
@@ -71,6 +75,13 @@ namespace Recipes.Controllers
         [Authorize(Policy = "ShouldBeAdmin")]
         public async Task<ActionResult<UserModel>> SetRecipeAsFavourite(string recipeId)
         {
+            var user = User.Identity.Name;
+            var claims = User.Claims;
+            this.logger.LogInformation("{user} will mark recipe {recipeId} as favourite because they have the claims: {claims}", 
+                user, recipeId, claims);
+
+            this.logger.LogCritical("We have the claims: {claims}", claims);
+
             var userName = this.HttpContext.User.Identity.Name;
             var userToUpdate = await this.userRepository.GetUserByUsername(userName); //ToDo separate database for claims?
 
@@ -78,7 +89,7 @@ namespace Recipes.Controllers
 
             if (isRecipeAlreadyFavourite)
             {
-                return Ok(this.mapper.Map<UserModel>(userToUpdate)); //ToDo should return something else when recipe already there??
+                return Ok(this.mapper.Map<UserModel>(userToUpdate));
             }
 
             userToUpdate.FavouriteRecipes = userToUpdate.FavouriteRecipes.Append(recipeId);
