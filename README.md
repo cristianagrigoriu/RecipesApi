@@ -41,5 +41,5 @@ Initial design:
 - [ ] (Entity Framework - SQLite - use local file)
 
 - [ ] add method to scale ingredients - add # target people to recipe
-- [ ] add trnasformation from different measure units
+- [ ] add transformation from different measure units
 
