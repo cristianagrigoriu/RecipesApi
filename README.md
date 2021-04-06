@@ -37,6 +37,9 @@ Initial design:
 
 - [ ] (unit tests)
 
-- [ ] repository in memory/file
+- [x] repository in memory/file
 - [ ] (Entity Framework - SQLite - use local file)
+
+- [ ] add method to scale ingredients - add # target people to recipe
+- [ ] add trnasformation from different measure units
 
