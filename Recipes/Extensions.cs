@@ -27,7 +27,6 @@
                         Description = "All time family favourites"
                     });
                     c.IncludeXmlComments("Recipes.xml");
-                    c.DescribeAllEnumsAsStrings();
 
                     c.AddSecurityDefinition(
                         "Bearer",

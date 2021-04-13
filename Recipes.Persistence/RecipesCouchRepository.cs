@@ -65,22 +65,22 @@ namespace Recipes.Persistence
                     )
                 );
 
-                var response = this.store.Client.Queries.FindAsync<Recipe>(request2).Result;
+                var response = await this.store.Client.Queries.FindAsync<Recipe>(request2);
 
                 return response.Docs;
             }
 
-            return this.GetAllRecipes().Result;
+            return await this.GetAllRecipes();
         }
 
-        public void DeleteRecipe(string id)
+        public async Task DeleteRecipe(string id)
         {
-            this.store.DeleteAsync(id).Wait();
+            await this.store.DeleteAsync(id);
         }
 
-        public void UpdateRecipe(Recipe updatedRecipe)
+        public async void UpdateRecipe(Recipe updatedRecipe)
         {
-            this.store.StoreAsync<Recipe>(updatedRecipe);
+            await this.store.StoreAsync<Recipe>(updatedRecipe);
         }
 
         public List<string> GetInstructionsOfRecipe(string id)
@@ -98,7 +98,7 @@ namespace Recipes.Persistence
             var request = new FindRequest()
                 .Configure(x => x.SelectorExpression(selector.ToString()));
 
-            var response = this.store.Client.Queries.FindAsync<Recipe>(request).Result;
+            var response = await this.store.Client.Queries.FindAsync<Recipe>(request);
 
             return response.Docs;
         }
@@ -115,7 +115,7 @@ namespace Recipes.Persistence
             var request = new FindRequest()
                 .Configure(x => x.SelectorExpression(selector.ToString()));
 
-            var response = this.store.Client.Queries.FindAsync<Recipe>(request).Result;
+            var response = await this.store.Client.Queries.FindAsync<Recipe>(request);
 
             return response.Docs;
         }

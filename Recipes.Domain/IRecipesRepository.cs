@@ -13,7 +13,7 @@
 
         Task<IEnumerable<Recipe>> GetRecipeByIngredients(string[] ingredients);
 
-        void DeleteRecipe(string id);
+        Task DeleteRecipe(string id);
 
         void UpdateRecipe(Recipe updatedRecipe);
 

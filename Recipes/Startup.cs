@@ -25,7 +25,8 @@ namespace Recipes
         {
             services.AddControllers();
 
-            services.ConfigureSwagger()
+            services
+                .ConfigureSwagger()
                 .AddAutoMapper(typeof(Startup))
                 .Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"))
                 .Configure<JwtSettings>(Configuration.GetSection("JwtSettings"))

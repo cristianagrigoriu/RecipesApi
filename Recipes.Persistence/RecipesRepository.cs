@@ -11,9 +11,9 @@
         {
         }
 
-        public async Task<IEnumerable<Recipe>> GetAllRecipes()
+        public Task<IEnumerable<Recipe>> GetAllRecipes()
         {
-            return RecipesFactory.GetRecipesWithBasicDetails();
+            return Task.Run(RecipesFactory.GetRecipesWithBasicDetails);
         }
 
         public void AddRecipe(Recipe newRecipe)
@@ -21,21 +21,21 @@
             RecipesFactory.AddRecipe(newRecipe);
         }
 
-        public async Task<Recipe> GetRecipeById(string id)
+        public Task<Recipe> GetRecipeById(string id)
         {
-            return RecipesFactory.GetRecipeById(id);
+            return Task.Run(() => RecipesFactory.GetRecipeById(id));
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipeByIngredients(string[] ingredients)
+        public Task<IEnumerable<Recipe>> GetRecipeByIngredients(string[] ingredients)
         {
-            return RecipesFactory
+            return Task.Run(() => RecipesFactory
                 .GetRecipesWithBasicDetails()
-                .Where(x => x.Ingredients.Any(i => ingredients.Contains(i.Name)));
+                .Where(x => x.Ingredients.Any(i => ingredients.Contains(i.Name))));
         }
 
-        public void DeleteRecipe(string id)
+        public Task DeleteRecipe(string id)
         {
-            RecipesFactory.DeleteRecipe(id);
+            return Task.Run(() => RecipesFactory.DeleteRecipe(id));
         }
 
         public void UpdateRecipe(Recipe updatedRecipe)
@@ -48,18 +48,18 @@
             return RecipesFactory.GetInstructionsOfRecipe(id);
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime)
+        public Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime)
         {
-            return RecipesFactory
+            return Task.Run(() => RecipesFactory
                 .GetRecipesWithBasicDetails()
-                .Where(x => x.TimeInMinutes <= maxTime);
+                .Where(x => x.TimeInMinutes <= maxTime));
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
+        public Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
         {
-            return RecipesFactory
+            return Task.Run(() => RecipesFactory
                 .GetRecipesWithBasicDetails()
-                .Where(x => x.Category.ToString() == category);
+                .Where(x => x.Category.ToString() == category));
         }
     }
 }
