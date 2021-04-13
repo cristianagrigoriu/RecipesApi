@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/CristianaGrigoriu/Recipes/_apis/build/status/cristianagrigoriu.RecipesApi?branchName=new-deploy)](https://dev.azure.com/CristianaGrigoriu/Recipes/_build/latest?definitionId=3&branchName=new-deploy)
+
 # RecipesApi
 
 A Recipes API to create and add your recipes
