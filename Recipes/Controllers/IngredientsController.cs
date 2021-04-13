@@ -32,6 +32,8 @@
             return Created("", this.mapper.Map<RecipeIngredientModel>(ingredient));
         }
 
+        public void ScaleIngredients() { }
+
         //[HttpGet]
         //public ActionResult<List<string>> Get(string id)
         //{
