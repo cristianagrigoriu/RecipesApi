@@ -3,9 +3,8 @@
 namespace Recipes.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using Domain;
 
-    public class RecipeModel
+    public class Recipe
     {
         public string Id { get; set; }
 
@@ -16,8 +15,6 @@ namespace Recipes.Models
         public string BasicDetails { get; set; }
 
         public double TimeInMinutes { get; set; }
-
-        public List<RecipeIngredientModel> Ingredients { get; set; }
 
         public string Category { get; set; }
 

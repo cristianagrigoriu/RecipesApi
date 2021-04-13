@@ -23,10 +23,5 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Recipes.Domain\Recipes.Domain.csproj" />
-    <ProjectReference Include="..\Recipes.Persistence\Recipes.Persistence.csproj" />
-  </ItemGroup>
-
 
 </Project>

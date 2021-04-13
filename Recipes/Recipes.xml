@@ -23,14 +23,7 @@
              <response code="404">Recipe with the specified id not found</response>
              <response code="500">Server error</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.GetRecipeByIngredient(System.String[])">
-            <summary>
-            Filter all recipes with the specified ingredients
-            </summary>
-            <param name="ingredients"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Recipes.Controllers.RecipesController.AddRecipe(Recipes.Models.RecipeModel)">
+        <member name="M:Recipes.Controllers.RecipesController.AddRecipe(Recipes.Models.Recipe)">
             <summary>
             Adds a new recipe to the existing ones
             </summary>
@@ -39,7 +32,7 @@
             </param>
              <response code="200">Successful operation</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.UpdateRecipe(System.String,Recipes.Models.RecipeModel)">
+        <member name="M:Recipes.Controllers.RecipesController.UpdateRecipe(System.String,Recipes.Models.Recipe)">
             <summary>
             Updates an existing recipe by replacing it with the one sent
             </summary>

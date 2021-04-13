@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Recipes.Models;
 using System.Net;
 using Microsoft.Extensions.Logging;
+using Recipes.Data;
 
 namespace Recipes.Controllers
 {
     using System.Threading.Tasks;
     using Constants;
-    using Domain;
 
     [Route(MainRoutes.RecipesRoute)]
     [ApiController]
@@ -34,14 +34,14 @@ namespace Recipes.Controllers
         /// <response code="200">Successful operation</response>
         /// <response code="500">Server error</response>
         [HttpGet]
-        [ProducesResponseType(typeof(RecipeModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Recipe), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesErrorResponseType(typeof(RecipeModel))]
-        public async Task<ActionResult<RecipeModel[]>> GetAllRecipes()
+        [ProducesErrorResponseType(typeof(Recipe))]
+        public async Task<ActionResult<Recipe[]>> GetAllRecipes()
         {
             this.logger.LogInformation("Logging from Recipes Controller ❤");
             var foundRecipes = await this.recipesRepository.GetAllRecipes();
-            var recipeModels = mapper.Map<RecipeModel[]>(foundRecipes);
+            var recipeModels = mapper.Map<Recipe[]>(foundRecipes);
             return recipeModels;
         }
 
@@ -56,12 +56,12 @@ namespace Recipes.Controllers
         /// <response code="404">Recipe with the specified id not found</response>
         /// <response code="500">Server error</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(RecipeModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Recipe), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesErrorResponseType(typeof(RecipeModel))]
-        public async Task<ActionResult<RecipeModel>> GetRecipe([FromRoute] string id)
+        [ProducesErrorResponseType(typeof(Recipe))]
+        public async Task<ActionResult<Recipe>> GetRecipe([FromRoute] string id)
         {
             var foundRecipe = await this.recipesRepository
                 .GetRecipeById(id);
@@ -71,22 +71,7 @@ namespace Recipes.Controllers
                 return NotFound();
             }
 
-            return mapper.Map<RecipeModel>(foundRecipe);
-        }
-
-        ///<summary>
-        ///Filter all recipes with the specified ingredients
-        ///</summary>
-        ///<param name="ingredients"></param>
-        ///<returns></returns>
-        [HttpGet("search")]
-        //add time and category
-        public async Task<ActionResult<RecipeModel[]>> GetRecipeByIngredient([FromQuery] string[] ingredients)
-        {
-            var foundRecipes = await this.recipesRepository
-                .GetRecipeByIngredients(ingredients);
-
-            return this.mapper.Map<RecipeModel[]>(foundRecipes);
+            return mapper.Map<Recipe>(foundRecipe);
         }
 
         ///<summary>
@@ -97,12 +82,12 @@ namespace Recipes.Controllers
         ///</param>
         /// <response code="200">Successful operation</response>
         [HttpPost]
-        public ActionResult<RecipeModel> AddRecipe(RecipeModel newRecipe)
+        public ActionResult<Recipe> AddRecipe(Recipe newRecipe)
         {
             var recipe = this.mapper.Map<Recipe>(newRecipe);
             this.recipesRepository.AddRecipe(recipe);
 
-            return Created("", this.mapper.Map<RecipeModel>(recipe));
+            return Created("", this.mapper.Map<Recipe>(recipe));
 
             //return BadRequest();
         }
@@ -119,19 +104,19 @@ namespace Recipes.Controllers
         /// <response code="200">Successful operation</response>
         /// <response code="404">Recipe with the specified id not found</response>
         [HttpPut("{id}")]
-        public ActionResult<RecipeModel> UpdateRecipe([FromRoute] string id, RecipeModel updatedRecipe)
+        public async Task<ActionResult<Recipe>> UpdateRecipe([FromRoute] string id, Recipe updatedRecipe)
         {
-            var existingRecipe = this.recipesRepository.GetRecipeById(id);
+            var existingRecipe = await Task.Run(() => this.recipesRepository.GetRecipeById(id));
             if (existingRecipe == null)
             {
                 return NotFound($"Could not find recipe with id = {id}");
             }
             
-            this.mapper.Map(updatedRecipe, existingRecipe.Result);
+            this.mapper.Map(updatedRecipe, existingRecipe);
 
-            this.recipesRepository.UpdateRecipe(existingRecipe.Result);
+            this.recipesRepository.UpdateRecipe(updatedRecipe);
 
-            return this.mapper.Map<RecipeModel>(existingRecipe.Result);
+            return this.mapper.Map<Recipe>(updatedRecipe);
         }
 
         /// <summary>
@@ -164,11 +149,11 @@ namespace Recipes.Controllers
         /// </param>
         /// <returns></returns>
         [HttpGet("time/{maxTime}")]
-        public async Task<ActionResult<RecipeModel[]>> GetRecipesByTime(double maxTime)
+        public async Task<ActionResult<Recipe[]>> GetRecipesByTime(double maxTime)
         {
             var recipesByTime = await this.recipesRepository.GetRecipesByTime(maxTime);
 
-            return this.mapper.Map<RecipeModel[]>(recipesByTime);
+            return this.mapper.Map<Recipe[]>(recipesByTime);
         }
 
         /// <summary>
@@ -179,11 +164,11 @@ namespace Recipes.Controllers
         /// </param>
         /// <returns></returns>
         [HttpGet("category/{category}")]
-        public async Task<ActionResult<RecipeModel[]>> GetRecipesByCategory(string category)
+        public async Task<ActionResult<Recipe[]>> GetRecipesByCategory(string category)
         {
             var recipesByTime = await this.recipesRepository.GetRecipesByCategory(category);
 
-            return this.mapper.Map<RecipeModel[]>(recipesByTime);
+            return this.mapper.Map<Recipe[]>(recipesByTime);
         }
     }
 }
