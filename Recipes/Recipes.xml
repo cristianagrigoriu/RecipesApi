@@ -4,14 +4,14 @@
         <name>Recipes</name>
     </assembly>
     <members>
-        <member name="M:Recipes.Controllers.RecipesController.GetAllRecipes">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.GetAllRecipes">
             <summary>
             Get all recipes
             </summary>
              <response code="200">Successful operation</response>
              <response code="500">Server error</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.GetRecipe(System.String)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.GetRecipe(System.String)">
             <summary>
             Get a recipe by the id
             </summary>
@@ -23,7 +23,7 @@
              <response code="404">Recipe with the specified id not found</response>
              <response code="500">Server error</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.AddRecipe(Recipes.Models.Recipe)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.AddRecipe(Recipes.Recipes.Models.Recipe)">
             <summary>
             Adds a new recipe to the existing ones
             </summary>
@@ -32,7 +32,7 @@
             </param>
              <response code="200">Successful operation</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.UpdateRecipe(System.String,Recipes.Models.Recipe)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.UpdateRecipe(System.String,Recipes.Recipes.Models.Recipe)">
             <summary>
             Updates an existing recipe by replacing it with the one sent
             </summary>
@@ -45,7 +45,7 @@
              <response code="200">Successful operation</response>
              <response code="404">Recipe with the specified id not found</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.DeleteRecipe(System.String)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.DeleteRecipe(System.String)">
             <summary>
             Deletes a recipe with the given id
             </summary>
@@ -55,7 +55,7 @@
             <response code="200">Successful operation</response>
             <response code="404">Recipe with the specified id not found</response>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.GetRecipesByTime(System.Double)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.GetRecipesByTime(System.Double)">
             <summary>
             Get all recipes that take at most the given amount of minutes
             </summary>
@@ -64,7 +64,7 @@
             </param>
             <returns></returns>
         </member>
-        <member name="M:Recipes.Controllers.RecipesController.GetRecipesByCategory(System.String)">
+        <member name="M:Recipes.Recipes.Controllers.APIRecipesController.GetRecipesByCategory(System.String)">
             <summary>
             Get all recipes in a certain category
             </summary>

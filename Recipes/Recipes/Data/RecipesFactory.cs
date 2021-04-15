@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Recipes.Models;
+using Recipes.Recipes.Models;
 
-namespace Recipes.Data
+namespace Recipes.Recipes.Data
 {
     public static class RecipesFactory
     {

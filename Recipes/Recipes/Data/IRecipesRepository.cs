@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Recipes.Models;
+using Recipes.Recipes.Models;
 
-namespace Recipes.Data
+namespace Recipes.Recipes.Data
 {
     public interface IRecipesRepository
     {

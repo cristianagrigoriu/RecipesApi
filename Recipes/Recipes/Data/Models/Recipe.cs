@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Recipes.Models
+namespace Recipes.Recipes.Models
 {
     using System.ComponentModel.DataAnnotations;
 

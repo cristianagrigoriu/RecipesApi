@@ -1,27 +1,27 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Recipes.Models;
+using Recipes.Recipes.Models;
 using System.Net;
 using Microsoft.Extensions.Logging;
-using Recipes.Data;
+using Recipes.Recipes.Data;
 
-namespace Recipes.Controllers
+namespace Recipes.Recipes.Controllers
 {
     using System.Threading.Tasks;
     using Constants;
 
     [Route(MainRoutes.RecipesRoute)]
     [ApiController]
-    public class RecipesController : ControllerBase
+    public class APIRecipesController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IRecipesRepository recipesRepository;
-        private readonly ILogger<RecipesController> logger;
+        private readonly ILogger<APIRecipesController> logger;
 
-        public RecipesController(
+        public APIRecipesController(
             IMapper mapper, 
             IRecipesRepository recipesRepository,
-            ILogger<RecipesController> logger)
+            ILogger<APIRecipesController> logger)
         {
             this.mapper = mapper;
             this.recipesRepository = recipesRepository;
