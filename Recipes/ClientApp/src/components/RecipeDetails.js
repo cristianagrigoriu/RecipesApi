@@ -25,7 +25,7 @@ export class RecipeDetails extends Component {
                 <p>Timp de coacere: 30 min sau pana cand o scobitoare introdusa in briose e uscata</p>
 
                 <div>
-                        <h3> Ingrediente</h3>
+                        <h3>Ingrediente</h3>
                         <ul>
                             <li>125g unt</li>
                             <li>250g zahar</li>
