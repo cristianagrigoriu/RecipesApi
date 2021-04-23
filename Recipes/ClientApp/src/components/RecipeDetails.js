@@ -6,20 +6,12 @@ export class RecipeDetails extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { currentCount: 0 };
-        this.incrementCounter = this.incrementCounter.bind(this);
-    }
-
-    incrementCounter() {
-        this.setState({
-            currentCount: this.state.currentCount + 1
-        });
     }
 
     render() {
         return (
             <div>
-                <h1>Briose (madlene)</h1>
+                <h1>{this.props.recipe.title}</h1>
 
                 <p>Timp de preparare: 30 min</p>
                 <p>Timp de coacere: 30 min sau pana cand o scobitoare introdusa in briose e uscata</p>
@@ -44,7 +36,7 @@ export class RecipeDetails extends Component {
                     <h3>Instructiuni</h3>
                     <ol>
                         <li>Intr-un vas se freaca untul cu zaharul si vanilia. Se adauga apa minerala, apoi galbenusurile pe rand, romul si faina, praful de copt.</li>
-                        <li>Faina se puna cate putin si se amesteca foarte bine.__defineGetter__ Se bat albusurile spuma tare si se inglobeaza usor in crema de oua, amestecand cu lingura de lemn, de sus in jos.</li>
+                        <li>Faina se puna cate putin si se amesteca foarte bine. Se bat albusurile spuma tare si se inglobeaza usor in crema de oua, amestecand cu lingura de lemn, de sus in jos.</li>
                         <li>Se pune aluatul in forme care se coc in cuptorul cald la foc potrivit.</li>
                     </ol>
                 </div>
