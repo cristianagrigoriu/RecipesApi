@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Recipes.Recipes.Models;
 using System.Net;
@@ -63,6 +64,8 @@ namespace Recipes.Recipes.Controllers
         [ProducesErrorResponseType(typeof(Recipe))]
         public async Task<ActionResult<Recipe>> GetRecipe([FromRoute] string id)
         {
+            //await Task.Delay(TimeSpan.FromSeconds(5));
+
             var foundRecipe = await this.recipesRepository
                 .GetRecipeById(id);
 

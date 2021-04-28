@@ -3,10 +3,6 @@
 export class RecipeDetails extends Component {
     static displayName = RecipeDetails.name;
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const ingredientList = this.props.recipe.ingredients.map((ingredient) =>
             <li>{ingredient}</li>
@@ -18,10 +14,10 @@ export class RecipeDetails extends Component {
 
         return (
             <div>
-                <h1>{this.props.recipe.title} - {this.props.recipe.id}</h1>
+                <h1>{this.props.recipe.name} - {this.props.recipe.id}</h1>
 
-                <p>{this.props.recipe.preparationTime}</p>
-                <p>{this.props.recipe.bakingTime}</p>
+                <p>Timp de preparare: {this.props.recipe.preparationTime}</p>
+                <p>Timp de copt: {this.props.recipe.bakingTime}</p>
 
                 <div>
                         <h3>Ingrediente</h3>

@@ -11,15 +11,12 @@ namespace Recipes.Recipes.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string BasicDetails { get; set; }
+        public string PreparationTime { get; set; }
 
-        public double TimeInMinutes { get; set; }
+        public string BakingTime { get; set; }
 
-        public string Category { get; set; }
+        public List<string> Ingredients { get; set; }
 
-        //Instructions
-
-        //categorie - mic dejun, ...
+        public List<string> Instructions { get; set; }
     }
 }
