@@ -6,11 +6,11 @@ export function RecipeDetailsFetcher(props) {
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:6600/api/recipes/1")
+        fetch(`http://localhost:6600/api/recipes/${props.match.params.recipeId}`)
             .then(x => x.json())
             .then(recipe => setRecipe(recipe));
        
-        }, [props.id]);
+        }, [props.recipeId]);
 
     if (recipe !== null) {
         return (

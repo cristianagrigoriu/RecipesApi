@@ -39,15 +39,15 @@ namespace Recipes.Recipes.Data
         public Task<IEnumerable<Recipe>> GetRecipesByTime(double maxTime)
         {
             return Task.Run(() => RecipesFactory
-                .GetRecipesWithBasicDetails()
-                .Where(x => x.TimeInMinutes <= maxTime));
+                .GetRecipesWithBasicDetails());
+            //.Where(x => x.TimeInMinutes <= maxTime));
         }
 
         public Task<IEnumerable<Recipe>> GetRecipesByCategory(string category)
         {
             return Task.Run(() => RecipesFactory
-                .GetRecipesWithBasicDetails()
-                .Where(x => x.Category?.ToString() == category));
+                .GetRecipesWithBasicDetails());
+            //.Where(x => x.Category?.ToString() == category));
         }
     }
 }
