@@ -1,8 +1,10 @@
 ﻿import React from 'react';
 
 export function RecipeSummary(props) {
-
     return (
-        <div>Toate retetele</div>
+        <li>
+            <div>{props.recipe.id}</div>
+            <div>{props.recipe.name}</div>
+        </li>
     );
 }

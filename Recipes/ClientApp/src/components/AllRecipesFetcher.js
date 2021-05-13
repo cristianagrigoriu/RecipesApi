@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { RecipeSummary } from './RecipeSummary';
+import { RecipeSummaryList } from './RecipeSummaryList';
 
 export function AllRecipesFetcher(props) {
     const [recipes, setRecipes] = useState([]);
@@ -7,14 +7,18 @@ export function AllRecipesFetcher(props) {
     useEffect(() => {
         fetch(`http://localhost:6600/api/recipes`)
             .then(x => x.json())
-            .then(recipe => setRecipes(recipes));
-
+            //.then(y => {
+            //    console.log('AllRecipesFetcher');
+            //    console.log(y);
+            //})
+            .then(recipes => recipes.map(recipe => setRecipes([...recipes, recipe.props])));
     }, []);
 
     if (recipes !== null) {
+        console.log(recipes)
         return (
             <div>
-                <RecipeSummary recipes={recipes} />
+                <RecipeSummaryList recipes={recipes.filter(x => x !== undefined)} />
             </div>
         );
     }
