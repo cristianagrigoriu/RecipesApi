@@ -2,27 +2,28 @@
 import { RecipeSummaryList } from './RecipeSummaryList';
 
 export function AllRecipesFetcher(props) {
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState();
+
 
     useEffect(() => {
-        fetch(`http://localhost:6600/api/recipes`)
+        fetch('/api/recipes')
             .then(x => x.json())
             //.then(y => {
             //    console.log('AllRecipesFetcher');
             //    console.log(y);
             //})
-            .then(recipes => recipes.map(recipe => setRecipes([...recipes, recipe.props])));
+            .then(recipes => setRecipes(recipes));
     }, []);
 
-    if (recipes !== null) {
-        console.log(recipes)
+    if (recipes === undefined) {
+        return (<p> Waiting for recipes </p>);
+    } else if (recipes.length === 0) {
+        return (<p> Oh no! There are no recipes ! </p>);
+    } else {
         return (
             <div>
-                <RecipeSummaryList recipes={recipes.filter(x => x !== undefined)} />
+                <RecipeSummaryList recipes={recipes}/>
             </div>
         );
-    }
-    else {
-        return <p>Your recipes will arrive shortly...</p>;
     }
 }

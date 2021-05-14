@@ -19,14 +19,8 @@ export default class App extends Component {
             <Route exact path='/' component={Home} />
             <Route path='/counter' component={Counter} />
             <Route path='/fetch-data' component={FetchData} />
-            <Route path='/recipe-details/:recipeId'
-                render={(props) => (
-                    <RecipeDetailsFetcher {...props} />
-                )} />
-            <Route path='/recipe-details'
-                render={(props) => (
-                    <AllRecipesFetcher {...props} />
-                )} />
+            <Route exact path='/recipe-details' component={AllRecipesFetcher} />
+            <Route path='/recipe-details/:recipeId' component={RecipeDetailsFetcher} />
           </Layout>
         );
   }
