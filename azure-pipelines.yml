@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  directory: /Recipes/ClientApp
+  directory: '/Recipes/ClientApp'
   stage: development
   serviceConnection: MyAzure
   appServiceName: cg-recipes
