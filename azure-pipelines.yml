@@ -43,14 +43,14 @@ steps:
     zipAfterPublish: True
   displayName: Publish zip
     
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'MyAzure'
-    appType: 'webApp'
-    WebAppName: 'cg-recipes'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip' 
-  displayName: Deploy to web app
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'MyAzure'
+#     appType: 'webApp'
+#     WebAppName: 'cg-recipes'
+#     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip' 
+#   displayName: Deploy to web app
 
 - task: NodeTool@0
   inputs:
