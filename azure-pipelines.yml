@@ -63,7 +63,7 @@ steps:
     script: |
       # Write your PowerShell commands here.
       
-      gci "$(System.DefaultWorkingDirectory)\.." -recurse
+      gci "$(System.DefaultWorkingDirectory)\.." -recurse -verbose
 
 - script: 
     npm install
